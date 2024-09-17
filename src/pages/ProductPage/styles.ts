@@ -24,7 +24,7 @@ export const ProductContainer = styled.div`
   height: 100%;
   margin: 0 auto;
   padding: 20px;
-  background-color: #111;
+  background-color: #141414;
   justify-content: center;
   font-family: 'Poppins', sans-serif;
 

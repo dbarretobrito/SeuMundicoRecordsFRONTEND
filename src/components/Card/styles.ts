@@ -5,7 +5,7 @@ export const CardContainer = styled.div`
   max-width: 18rem;
   height: auto; /* Remova a altura fixa para permitir ajuste automático */
   aspect-ratio: 3 / 4; /* Mantém a proporção 3:4 */
-  background-color: #111;
+  background-color: #141414;
   padding: 0.78rem;
   margin: 0 auto;
   margin-top: 1rem;
