@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const HeaderContainer = styled.header`
-  background-color: wheat;
+  background-color: white;
   color: #282c34;
   display: flex;
   align-items: center;
@@ -63,8 +63,8 @@ export const HeaderContainer = styled.header`
     }
 
     .nav-links a {
-      font-size: 0.6rem;
-      margin: 0 1px; /* Ajuste o espaçamento entre os elementos */
+      font-size: 0.7rem;
+      margin: 0 2px; /* Ajuste o espaçamento entre os elementos */
     }
   }
 `;

@@ -4,13 +4,12 @@ export const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    
+    box-sizing: border-box;    
   }
 
   body {
     font-family: 'Poppins', sans-serif;
-    background-color: #111;
+    background-color: #141414;
     color: white;
   }
 `;

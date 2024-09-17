@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
-// Mantendo CartContainer como está
 export const CartContainer = styled.div`
   padding: 1.25rem;
-  max-width: 50rem;
+  max-width: 80rem;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -23,10 +22,10 @@ export const CartHeader = styled.div`
   grid-template-columns: 5rem 1fr 1fr 1fr 1fr 2.5rem;
   gap: 0.5rem;
   padding: 0.625rem 0;
-  font-weight: bold;
   text-align: center;
   border-bottom: 1px solid #ccc;
   box-sizing: border-box;
+  font-size: .9rem;
 
   @media (max-width: 480px) {
     width: 40rem;
@@ -92,9 +91,13 @@ export const QuantityInput = styled.input`
   padding: 0.3125rem;
   font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 0.25rem;
   text-align: center;
   justify-self: center;
+  font-family: 'Poppins', sans-serif;
+
+  &:focus {
+    outline: none;
+  }
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
@@ -117,100 +120,169 @@ export const ProductPrice = styled.p`
 `;
 
 export const RemoveButton = styled.button`
-  background-color: white;
-  color: black;
-  font-weight: bold;
-  border-radius: 50%;
-  width: 1.2rem;
-  height: 1.2rem;
-  cursor: pointer;
-  font-size: 0.6rem;
-  text-align: center;
-  justify-self: center;
-
-  &:hover {
-    background-color: #f44336;
-    color: white;
-  }
-
-  @media (max-width: 480px) {
-    width: 1.5625rem;
-    height: 1.5625rem;
-    font-size: 0.875rem;
-  }
-`;
-
-export const TotalAmount = styled.p`
-  font-size: 1.25rem;
-  font-weight: bold;
-  text-align: right;
-  margin-top: 1.5rem; /* Aumente o espaço superior se necessário */
-
-  @media (max-width: 480px) {
-    text-align: center;
-  }
-`;
-
-export const AddMoreButton = styled.button`
-  background-color: #333;
-  width: 12rem;
-  color: white;
+  width: 1rem;
+  height: 1rem;
+  background: white;
   border: none;
-  border-radius: 0.25rem;
-  padding: 0.725rem 0.9375rem;
+  border-radius: 50%;
+  color: #333;
   cursor: pointer;
-  font-size: 1rem;
-  margin-top: 1.25rem;
+  font-size: .6rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  justify-self: center;
+  align-self: center;
 
   &:hover {
-    background-color: #555;
+    color: darkred;
+  }
+`;
+
+export const TotalAmount = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+  justify-content: center;
+
+  span{
+    font-weight: 600;
   }
 
-  @media (max-width: 480px) {
-    width: 100%;
-    padding: 0.625rem 0;
+  p {
+    font-weight: 300;
+  }
+
+  .amount-freight{
+    display: flex;
+    justify-content: right;
+    gap: 0.5rem;
+    font-size: 1rem;
+
+    @media (max-width: 480px) {
+      text-align: center;
+      justify-content: space-between;
+    }
+  }
+  .amount-total{
+    display: flex;
+    justify-content: right;
+    gap: 0.5rem;
+    font-size: 1rem;
+
+    @media (max-width: 480px) {
+      text-align: center;
+      justify-content: space-between;
+    }
   }
 `;
 
 export const FreightContainer = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 100%; /* Ocupa toda a largura disponível */
-  gap: 0.625rem; /* Espaçamento entre o input e o botão */
-  margin-top: 0.625rem;
+  justify-content: right;
+  margin-top: 1rem;
 
   @media (max-width: 480px) {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
   }
 `;
 
 export const FreightInput = styled.input`
-  width: 11.25rem;
-  padding: 0.625rem;
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
+  width: 9.5rem;
+  height: 3rem;
+  padding: 0 .5rem;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  background-color: #E0E0E1;
+  
+  &:focus {
+    outline: none;
+  }
 
   @media (max-width: 480px) {
     width: 100%;
+    height: 3rem;
+    margin-top: 0.625rem;
   }
 `;
 
 export const CalculateFreightButton = styled.button`
-  padding: 0.625rem 1.25rem;
+  width: 7rem;
+  height: 3rem;
   border: none;
   background-color: #333;
   color: white;
   cursor: pointer;
-  border-radius: 0.25rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  justify-content: center;
 
   &:hover {
     background-color: #555;
   }
 
   @media (max-width: 480px) {
-    width: 100%;
+    width: 50%;
+    height: 3rem;
     margin-top: 0.625rem;
   }
 `;
+
+
+export const FinishButton = styled.button<{ visible: boolean }>`
+  display: ${({ visible }) => (visible ? 'flex' : 'none')};
+  width: 16.5rem;
+  background-color: #333;
+  color: white;
+  height: 3rem;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  align-self: flex-end;
+  align-items: center; /* Alinha itens verticalmente ao centro */
+  justify-content: center; /* Alinha itens horizontalmente ao centro */
+  gap: 0.5rem; /* Espaçamento entre o texto e o ícone */
+
+  &:hover {
+    background-color: #555;
+  }
+
+  &:disabled {
+    background-color: transparent;
+    color: #aaa;
+    cursor: not-allowed;
+  }
+
+  a {
+    color: white; /* Texto branco */
+    text-decoration: none; /* Remove sublinhado */
+    display: flex; /* Usar flexbox para alinhar o texto e o ícone */
+    align-items: center; /* Alinha itens verticalmente ao centro */
+    gap: 0.5rem; /* Espaçamento entre o texto e o ícone */
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
+`;
+
+
+export const AddMoreButton = styled.button`
+  width: 16.5rem;
+  height: 3rem;
+  border: 1px solid #999;
+  background-color: #111;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+
+  &:hover {
+    background-color: #555;
+  }
+  @media (max-width: 480px) {
+    width: 100%;
+  }`;

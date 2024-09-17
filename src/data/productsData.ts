@@ -269,7 +269,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year: 1980,
-    tags: ['Arrigo', 'Clara Crocodilo', 'Sabor de Veneno', '1980', 'MPB', 'Vanguarda Paulistana']
+    tags: ['Arrigo Barnabé', 'Clara Crocodilo', 'Sabor de Veneno', '1980', 'MPB', 'Vanguarda Paulistana']
   },
   {
     id: 3, 
@@ -280,7 +280,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year: 1974,
-    tags: ['Arnaldo', 'Loki', '1974', 'MPB', 'Rock Nacional']
+    tags: ['Arnaldo Baptista', 'Loki', '1974', 'MPB', 'Rock Nacional']
   },
   {
     id: 4, 
@@ -292,7 +292,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year: 1998,
-    tags: ['Bestie', 'Hello Nasty', '1998']
+    tags: ['Bestie Boys', 'Hello Nasty', '1998']
   },
   {
     id: 5, 
@@ -304,7 +304,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year: 1967,
-    tags: ['Bob', "Don't Look Back", '1967']
+    tags: ['Bob Dylan', "Don't Look Back", '1967']
   },
   {
     id: 6, 
@@ -328,7 +328,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year: 1982,
-    tags: ['Barão', "Cazuza", '1982', 'Frejat', 'Rock Nacional']
+    tags: ['Barão Vermelho', "Cazuza", '1982', 'Frejat', 'Rock Nacional']
   },
   {
     id: 15, 
@@ -339,7 +339,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year: 1984,
-    tags: ['Barão', "Cazuza", '1984', 'Frejat', 'Rock Nacional']
+    tags: ['Barão Vermelho', "Cazuza", '1984', 'Frejat', 'Rock Nacional']
   },
   {
     id: 8, 
@@ -351,7 +351,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year: 1987,
-    tags: ['Barão', "Cazuza", '1987', 'Frejat', 'Rock Nacional']
+    tags: ['Barão Vermelho', "Cazuza", '1987', 'Frejat', 'Rock Nacional']
   },
   {
     id: 9, 
@@ -363,7 +363,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year: 1972,
-    tags: ['Chico', "Carnaval", '1972', 'Nara', 'Maria', 'Samba', 'MPB']
+    tags: ['Chico Buarque', "Carnaval", '1972', 'Nara', 'Maria', 'Samba', 'MPB']
   },
   {
     id: 58, 
@@ -376,7 +376,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year: 1971,
-    tags: ['Chico', "Carnaval", '1971', 'Samba', 'MPB', 'Construção']
+    tags: ['Chico Buarque', "Carnaval", '1971', 'Samba', 'MPB', 'Construção']
   },
   {
     id: 10, 
@@ -387,7 +387,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year: 1982,
-    tags: ['Clara', "Nação", '1982', 'MPB']
+    tags: ['Clara Nunes', "Nação", '1982', 'MPB']
   },
   {
     id: 11, 
@@ -419,7 +419,7 @@ export const products: Product[] = [
       },
     description: "",
     price: 115,
-    tags: ['Disney', 'Animação', 'Desenho Animado', 'Arte']
+    tags: ['Disney', 'Zé Carioca', 'Animação', 'Desenho Animado', 'Arte']
   },
   {
     id: 14, 
@@ -465,7 +465,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1974,
-    tags: ['Elis', 'Tom', 'Antônio Carlos', 'Bossa Nova', 'MPB']
+    tags: ['Elis Regina', 'Tom Jobim', 'Antônio Carlos Jobim', 'Bossa Nova', 'MPB']
   },
   {
     id: 18, 
@@ -476,7 +476,7 @@ export const products: Product[] = [
       },
     description: "",
     price: 115,
-    tags: ['Engenheiros', 'Rock Nacional']
+    tags: ['Engenheiros do Hawaii', 'Rock Nacional']
   },
   {
     id: 19, 
@@ -489,7 +489,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1973,
-    tags: ['The Faces', 'Ooh La La', 'Rod']
+    tags: ['The Faces', 'Rod Stewart', 'Ooh La La']
   },
   {
     id: 20, 
@@ -503,7 +503,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1969,
-    tags: ['Tropicalia', 'Gal', '1969', 'MPB']
+    tags: ['Tropicalia', 'Gal Costa', '1969', 'MPB']
   },
   {
     id: 21, 
@@ -530,7 +530,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1976,
-    tags: ['João', '1976', 'MPB']
+    tags: ['João Bosco', 'Aldir Blanc', '1976', 'MPB']
   },
   {
     id: 23, 
@@ -542,7 +542,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1973,
-    tags: ['Luiz', '1973', 'Pérola Negra', 'MPB', 'Black Music']
+    tags: ['Luiz Melodia', '1973', 'Pérola Negra', 'MPB', 'Black Music']
   },
   {
     id: 24, 
@@ -566,7 +566,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1975,
-    tags: ['Tim', 'Racional', '1975', 'Black Music']
+    tags: ['Tim Maia', 'Racional', '1975', 'Black Music']
   },
   {
     id: 26, 
@@ -590,7 +590,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1970,
-    tags: ['Milton', 'Som Imaginário','1970', 'MPB']
+    tags: ['Milton Nascimento', 'Som Imaginário','1970', 'MPB']
   },
   {
     id: 28, 
@@ -602,7 +602,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1984,
-    tags: ['Marina', 'MPB','1984']
+    tags: ['Marina Lima', 'MPB','1984']
   },
   {
     id: 29, 
@@ -616,7 +616,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1996,
-    tags: ['Marisa', 'MPB','1996']
+    tags: ['Marisa Monte', 'MPB','1996']
   },
   {
     id: 30, 
@@ -628,7 +628,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1994,
-    tags: ['Marisa', 'MPB','1994']
+    tags: ['Marisa Monte', 'MPB','1994']
   },
   {
     id: 31, 
@@ -640,7 +640,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1976,
-    tags: ['Novos', 'MPB','1976', 'Moraes', 'Baby', 'Pepeu']
+    tags: ['Novos Baianos', 'MPB','1976', 'Moraes', 'Baby', 'Pepeu']
   },
   {
     id: 32, 
@@ -675,7 +675,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1967,
-    tags: ['Pink', '1967', 'Piper at the Gates of Dawn']
+    tags: ['Pink Floyd', '1967', 'Piper at the Gates of Dawn']
   },
   {
     id: 35, 
@@ -686,7 +686,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1971,
-    tags: ['Paul', 'The Beatles', '1971', 'Wings']
+    tags: ['Paul McCartney', 'The Beatles', '1971', 'Wings']
   },
   {
     id: 36, 
@@ -698,7 +698,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1972,
-    tags: ['Paul', 'The Beatles', '1972', 'Wings']
+    tags: ['Paul McCartney', 'The Beatles', '1972', 'Wings']
   },
   {
     id: 37, 
@@ -711,7 +711,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1971,
-    tags: ['Paul', 'The Beatles', '1971', 'Wings']
+    tags: ['Paul McCartney', 'The Beatles', '1971', 'Wings']
   },
   {
     id: 38, 
@@ -748,7 +748,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1979,
-    tags: ['Rita', '1979', 'Rock Nacional', 'MPB']
+    tags: ['Rita Lee', '1979', 'Rock Nacional', 'MPB']
   },
   {
     id: 41, 
@@ -797,7 +797,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1973,
-    tags: ['Secos e Molhados', '1973', 'Rock Nacional', 'MPB']
+    tags: ['Secos e Molhados', 'Ney Matogrosso', '1973', 'Rock Nacional', 'MPB']
   },
   {
     id: 45, 
@@ -809,7 +809,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1973,
-    tags: ['Secos e Molhados', '1973', 'Rock Nacional', 'MPB']
+    tags: ['Secos e Molhados', 'Ney Matogrosso', '1973', 'Rock Nacional', 'MPB']
   },
   {
     id: 46, 
@@ -861,7 +861,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1970,
-    tags: ['Stevie', '1970', 'Black Music']
+    tags: ['Stevie Wonder', '1970', 'Black Music']
   },
   {
     id: 51, 
@@ -885,7 +885,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1970,
-    tags: ['Beach', '1970']
+    tags: ['Beach Boys', '1970']
   },
   {
     id: 53, 
@@ -898,7 +898,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1975,
-    tags: ['Caetano', '1975', 'MPB']
+    tags: ['Caetano Veloso', '1975', 'MPB']
   },
   {
     id: 54, 
@@ -910,7 +910,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1968,
-    tags: ['Caetano', '1968', 'MPB', 'Tropicalia']
+    tags: ['Caetano Veloso', '1968', 'MPB', 'Tropicalia']
   },
   {
     id: 55, 
@@ -923,7 +923,7 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year:1984,
-    tags: ['Caetano', '1984', 'MPB']
+    tags: ['Caetano Veloso', '1984', 'MPB']
   },
   {
     id: 56, 

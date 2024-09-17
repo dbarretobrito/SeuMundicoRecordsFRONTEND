@@ -20,7 +20,6 @@ export function Header() {
           <NavLink to="/">HOME</NavLink>
           <NavLink to="/search"><FaSearch size={22}/></NavLink> {/* Adicione o link da busca */}
           <NavLink to="/cart"><FaShoppingCart size={22}/></NavLink>
-          <NavLink to="/contact">CONTATO</NavLink>
         </div>
       </nav>
     </HeaderContainer>
