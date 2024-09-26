@@ -763,7 +763,7 @@ export const products: Product[] = [
   },
   {
     id: 42, 
-    name: "A Misteriosa Luta do Reino de Parassempre Contra o Império de Nuncamais", 
+    name: "A Misteriosa Luta do Reino de Parassempre...", 
     images: { 
       front: MisteriosaFRONT,
     },

@@ -68,7 +68,7 @@ export const CardContent = styled.div`
   }
 
   @media (max-width: 480px) {
-    font-size: .65rem;
+    font-size: .5rem;
     margin-top: 5px;
     span {
       font-size: 0.6rem;
