@@ -230,8 +230,8 @@ export const CalculateFreightButton = styled.button`
 `;
 
 
-export const FinishButton = styled.button<{ visible: boolean }>`
-  display: ${({ visible }) => (visible ? 'flex' : 'none')};
+export const FinishButton = styled.button`
+  display: flex; /* Remova o controle de exibição baseado na prop visible */
   width: 16.5rem;
   background-color: #333;
   color: white;
@@ -268,6 +268,7 @@ export const FinishButton = styled.button<{ visible: boolean }>`
     width: 100%;
   }
 `;
+
 
 
 export const AddMoreButton = styled.button`

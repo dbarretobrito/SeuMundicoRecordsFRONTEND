@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import axios from 'axios';
 import { CartContext } from '../../context/CartContext';
 import {
     CartContainer,
@@ -51,6 +52,7 @@ const generateWhatsAppMessage = ({
 
 export function CartPage() {
     const cartContext = useContext(CartContext);
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [cep, setCep] = useState('');
     const [freightCost, setFreightCost] = useState<number | null>(null);
     const [isCepValid, setIsCepValid] = useState(false);
@@ -75,30 +77,20 @@ export function CartPage() {
     const handleCalculateFreight = async () => {
         if (isCepValid) {
             try {
-                const response = await fetch('http://localhost:3001/calculate-shipping', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        from: { postal_code: "52030010" },
-                        to: { postal_code: cep },
-                        package: {
-                            height: 15,
-                            width: 15,
-                            length: 15,
-                            weight: 0.9
-                        }
-                    }),
+                // Use a URL do backend que está hospedado no Railway
+                const response = await axios.post(`${backendUrl}/calculate-shipping`, {
+                    from: { postal_code: "52030010" },
+                    to: { postal_code: cep },
+                    package: {
+                        height: 15,
+                        width: 15,
+                        length: 15,
+                        weight: 0.9
+                    }
                 });
 
-                if (!response.ok) {
-                    throw new Error('Erro na resposta da API');
-                }
-
-                const data = await response.json();
-                if (data.pacPrice) {
-                    setFreightCost(parseFloat(data.pacPrice));
+                if (response.data.pacPrice) {
+                    setFreightCost(parseFloat(response.data.pacPrice));
                 } else {
                     throw new Error('Preço do PAC não encontrado');
                 }
@@ -149,20 +141,20 @@ export function CartPage() {
                 ))}
             </CartContent>
             <TotalAmount>
-                    {cartItems.length > 0 && (
-                <>
-                    {freightCost !== null && (
-                        <div className="amount-freight">
-                            <p>Frete:</p>
-                            <p>R$ {freightCost.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
+                {cartItems.length > 0 && (
+                    <>
+                        {freightCost !== null && (
+                            <div className="amount-freight">
+                                <p>Frete:</p>
+                                <p>R$ {freightCost.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
+                            </div>
+                        )}
+                        <div className="amount-total">
+                            <span>Total:</span>
+                            <p>R$ {(totalAmount + (freightCost || 0)).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
                         </div>
-                    )}
-                    <div className="amount-total">
-                        <span>Total:</span>
-                        <p>R$ {(totalAmount + (freightCost || 0)).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
-                    </div>
-                </>
-            )}
+                    </>
+                )}
             </TotalAmount>
             <FreightContainer>
                 <FreightInput
@@ -175,7 +167,11 @@ export function CartPage() {
                     CALCULAR
                 </CalculateFreightButton>
             </FreightContainer>
-            <FinishButton visible={freightCost !== null} disabled={freightCost === null}> {/* Desabilita o botão até que o frete seja calculado */}
+            <FinishButton 
+    style={{ display: freightCost ? 'flex' : 'none' }} 
+    disabled={freightCost === null}
+>
+
                 {freightCost !== null ? (
                     <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
                         CONCLUIR <FaWhatsapp size={20} />
