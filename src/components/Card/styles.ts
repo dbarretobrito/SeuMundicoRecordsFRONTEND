@@ -10,11 +10,16 @@ export const CardContainer = styled.div`
   padding: 0.78rem;
   margin: 0.5rem; /* Reduz o margin para melhor espaçamento */
   overflow: hidden;
-  display: -webkit-flex; /* Garante compatibilidade com Safari iOS */
   display: flex;
   flex-direction: column;
   cursor: pointer;
   box-sizing: border-box;
+
+  /* Compatibilidade com Safari no iPhone */
+  @supports not (-webkit-touch-callout: none) {
+    aspect-ratio: unset; /* Remove o aspect-ratio em navegadores problemáticos */
+    height: auto;
+  }
 
   @media (max-width: 768px) {
     flex-basis: calc(50% - 1rem); /* Ocupa metade da tela em tablets */
@@ -30,26 +35,20 @@ export const CardContainer = styled.div`
     flex-basis: calc(100% - 1rem); /* Ocupa toda a largura da tela em celulares pequenos */
     max-width: 100%;
   }
-
-  /* Corrige problemas específicos do Safari iOS */
-  @supports not (-webkit-touch-callout: none) {
-    aspect-ratio: unset; /* Remove aspect-ratio em navegadores com suporte problemático */
-    height: auto;
-  }
 `;
 
 export const CardImage = styled.img`
   width: 100%;
   height: 85%;
   object-fit: cover;
-  aspect-ratio: inherit;
+
+  @supports not (-webkit-touch-callout: none) {
+    aspect-ratio: unset; /* Remove o aspect-ratio no Safari iOS */
+    height: auto;
+  }
 
   @media (min-width: 768px) and (max-width: 1024px) {
     height: 80%; /* Ajusta ligeiramente a altura para tablets */
-  }
-
-  @supports not (-webkit-touch-callout: none) {
-    aspect-ratio: unset; /* Remove aspect-ratio no Safari iOS */
   }
 `;
 
@@ -97,10 +96,10 @@ export const CardContent = styled.div`
   }
 
   @media (max-width: 480px) {
-    font-size: 0.6rem; /* Ajusta a fonte para iPhones pequenos */
-    padding: 5px 0; /* Ajusta o padding */
+    font-size: 0.5rem;
+    margin-top: 5px;
     span {
-      font-size: 0.5rem;
+      font-size: 0.6rem;
     }
   }
 `;
