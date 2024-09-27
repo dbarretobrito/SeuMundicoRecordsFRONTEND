@@ -26,6 +26,7 @@ export const CartHeader = styled.div`
   border-bottom: 1px solid #ccc;
   box-sizing: border-box;
   font-size: .9rem;
+  width: 100%;
 
   @media (max-width: 480px) {
     width: 40rem;
@@ -46,13 +47,14 @@ export const CartItemContainer = styled.div`
   padding: 0.625rem 0;
   gap: 0.5rem;
   box-sizing: border-box;
+  width: 100%;
 
   @media (max-width: 480px) {
     width: 40rem;
   }
 
   @media (max-width: 840px) {
-    width: 40rem;
+    width: 100%;
     font-size: 0.8rem;
   }
 `;
