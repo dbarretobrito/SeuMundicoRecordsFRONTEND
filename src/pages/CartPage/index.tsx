@@ -167,16 +167,15 @@ export function CartPage() {
                 </CalculateFreightButton>
             </FreightContainer>
             <FinishButton 
-    style={{ display: cartItems.length > 0 && freightCost ? 'flex' : 'none' }} 
-    disabled={freightCost === null}
->
-    {freightCost !== null ? (
-        <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-            CONCLUIR <FaWhatsapp size={20} />
-        </a>
-    ) : null}
-</FinishButton>
-''
+                style={{ display: cartItems.length > 0 && freightCost ? 'flex' : 'none' }} 
+                disabled={freightCost === null}
+            >
+                {freightCost !== null ? (
+                    <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                        CONCLUIR <FaWhatsapp size={20} />
+                    </a>
+                ) : null}
+            </FinishButton>
             <AddMoreButton onClick={() => window.location.href = '/'}>
                 ADICIONAR MAIS PRODUTOS
             </AddMoreButton>
