@@ -5,49 +5,44 @@ export const MainContainer = styled.div`
   flex-direction: column;
   max-width: 1268px;
   margin: 0 auto;
-  padding: 0; // Certifique-se de que não há padding extra
+  padding: 0;
 
   @media (max-width: 1200px) {
-        height: 50vh;
-        aspect-ratio: inherit;
-      }
+    height: 50vh;
+  }
 
-      @media (max-width: 900px) {
-        height: 40vh;
-        aspect-ratio: inherit;
-      }
+  @media (max-width: 900px) {
+    height: 40vh;
+  }
 
-      @media (max-width: 768px) {
-        height: 35vh;
-        aspect-ratio: inherit;
-      }
+  @media (max-width: 768px) {
+    height: 35vh;
+  }
 
-      @media (max-width: 600px) {
-        height: 30vh;
-        aspect-ratio: inherit;
-      }
+  @media (max-width: 600px) {
+    height: 30vh;
+  }
 
-      @media (max-width: 480px) {
-        height: 25vh;
-        aspect-ratio: inherit;
-      }
+  @media (max-width: 480px) {
+    height: 25vh;
+  }
 
-      @media (max-width: 360px) {
-        height: 20vh;
-        aspect-ratio: inherit;
-      }
+  @media (max-width: 360px) {
+    height: 20vh;
+  }
 
   h2 {
     margin-bottom: 20px;
   }
 
   a {
-    color: inherit; /* Mantém a cor do link inalterada */
-    text-decoration: none; /* Remove o sublinhado */
+    color: inherit;
+    text-decoration: none;
     text-transform: uppercase;
     font-weight: 500;
   }
 `;
+
 
 export const ProductGrid = styled.div`
   display: grid;
@@ -55,22 +50,32 @@ export const ProductGrid = styled.div`
   max-width: 100%;
   margin: 0 auto;
   padding: 20px;
+  gap: 0; /* Adiciona espaçamento entre os itens */
 
   @media (max-width: 1200px) {
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
   }
 
   @media (max-width: 900px) {
-    grid-template-columns: repeat(2, 1fr); 
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
   }
 
   @media (max-width: 600px) {
-    grid-template-columns: repeat(2, 1fr); 
+    grid-template-columns: repeat(2, 1fr);
     padding: 10px;
+    gap: 10px;
   }
 
   @media (max-width: 480px) {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
+
+  @media (max-width: 360px) {
+    grid-template-columns: repeat(1, 1fr); /* Ocupa a tela toda em celulares menores */
+    gap: 10px;
+  }
 `;
+

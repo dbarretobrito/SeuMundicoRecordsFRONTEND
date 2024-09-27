@@ -2,48 +2,43 @@ import styled from 'styled-components';
 
 export const CardContainer = styled.div`
   width: 100%;
-  flex-basis: calc(33.33% - 1rem); /* Cards ocupam 1/3 da largura com espaçamento */
   max-width: 18rem; /* Limita a largura máxima */
-  height: auto;
-  aspect-ratio: 3 / 4; /* Mantém a proporção 3:4 */
   background-color: #141414;
-  padding: 0.78rem;
-  margin: 0.5rem; /* Reduz o margin para melhor espaçamento */
+  padding: 0 0.78rem;
+  margin: 0.5rem 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   cursor: pointer;
   box-sizing: border-box;
 
-  /* Compatibilidade com Safari no iPhone */
+  /* Para garantir a proporção 3:4 em navegadores com problemas de suporte */
   @supports not (-webkit-touch-callout: none) {
-    aspect-ratio: unset; /* Remove o aspect-ratio em navegadores problemáticos */
-    height: auto;
+    width: 100%;
+    height: 87%; /* 75% da largura mantém a proporção 3:4 */
   }
 
   @media (max-width: 768px) {
-    flex-basis: calc(50% - 1rem); /* Ocupa metade da tela em tablets */
     max-width: 100%; /* Garante que não ultrapasse a largura da tela */
   }
 
   @media (max-width: 600px) {
-    flex-basis: calc(50% - 0.5rem); /* Ocupa metade da tela em celulares maiores */
     max-width: 100%;
   }
 
   @media (max-width: 480px) {
-    flex-basis: calc(100% - 1rem); /* Ocupa toda a largura da tela em celulares pequenos */
     max-width: 100%;
   }
 `;
 
 export const CardImage = styled.img`
-  width: 100%;
-  object-fit: cover;
+  width: 100%; /* A largura da imagem será sempre 100% */
+  height: 87%; /* Mantém a altura proporcional à largura (3:4) */
+  object-fit: cover; /* Garante que a imagem preencha o espaço mantendo a proporção */
 
   @supports not (-webkit-touch-callout: none) {
-    aspect-ratio: 3/4; /* Remove o aspect-ratio no Safari iOS */
-    height: auto;
+    width: 100%;
+    height: 75%; /* Aplica a mesma lógica de 3:4 no Safari */
   }
 
   @media (min-width: 768px) and (max-width: 1024px) {
@@ -51,16 +46,17 @@ export const CardImage = styled.img`
   }
 `;
 
+
 export const CardContent = styled.div`
   font-family: 'Poppins', sans-serif;
   padding: 10px 0;
   text-align: center;
-  height: 20%;
+  height: auto;
   font-size: 1rem;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 
   p {
     margin: 0;
@@ -71,10 +67,11 @@ export const CardContent = styled.div`
     font-size: 0.85rem;
     color: #888;
     margin-top: 3px;
+    display: block;
   }
 
   @media (min-width: 768px) and (max-width: 1024px) {
-    font-size: 0.9rem; /* Ajuste no tamanho da fonte para tablets */
+    font-size: 0.9rem;
     span {
       font-size: 0.8rem;
     }
@@ -102,3 +99,4 @@ export const CardContent = styled.div`
     }
   }
 `;
+
