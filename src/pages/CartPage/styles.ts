@@ -222,6 +222,10 @@ export const CalculateFreightButton = styled.button`
     background-color: #555;
   }
 
+  &:active {
+    background-color: #333; /* Volta à cor normal após clique */
+  }
+
   @media (max-width: 480px) {
     width: 50%;
     height: 3rem;
@@ -248,6 +252,10 @@ export const FinishButton = styled.button`
 
   &:hover {
     background-color: #555;
+  }
+
+  &:active {
+    background-color: #333; /* Volta à cor normal após clique */
   }
 
   &:disabled {

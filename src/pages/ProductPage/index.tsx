@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useCart } from '../../context/useCart';
 import { ProductContainer, ProductImage, BreadcrumbContainer, ErrorMessage, SizeSelector, SizeButton, ConfirmationMessage, ThumbnailsContainer, Thumbnail, ModalOverlay, ModalContent, ModalImage, BuyButton } from './styles';
@@ -7,6 +7,7 @@ import ReactSlick from "react-slick";
 
 export function ProductPage() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const { addToCart } = useCart();
   const product = products.find(p => p.id === parseInt(id!));
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
@@ -38,7 +39,8 @@ export function ProductPage() {
 
     setTimeout(() => {
       setConfirmationMessage(false);
-    }, 3000);
+      navigate('/cart');
+    }, 1500);
   };
 
   const handleSizeSelect = (size: string) => {

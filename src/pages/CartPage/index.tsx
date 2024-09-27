@@ -110,7 +110,7 @@ export function CartPage() {
         zipCode: cep
     });
     const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = '5583999269613';
+    const phoneNumber = '5581999847081';
     const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
     return (
