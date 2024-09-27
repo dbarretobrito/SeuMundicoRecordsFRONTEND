@@ -295,3 +295,4 @@ export const AddMoreButton = styled.button`
   @media (max-width: 480px) {
     width: 100%;
   }`;
+
