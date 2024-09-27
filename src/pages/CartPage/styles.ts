@@ -28,12 +28,12 @@ export const CartHeader = styled.div`
   font-size: .9rem;
 
   @media (max-width: 480px) {
-    width: 40rem;
+    width: 100%;
     font-size: 0.9rem;
   }
 
   @media (max-width: 840px) {
-    width: 100%;
+    width: 40rem;
     font-size: 0.8rem;
   }
 `;
@@ -48,11 +48,11 @@ export const CartItemContainer = styled.div`
   box-sizing: border-box;
 
   @media (max-width: 480px) {
-    width: 40rem;
+    width: 100%;
   }
 
   @media (max-width: 840px) {
-    width: 100%;
+    width: 40rem;
     font-size: 0.8rem;
   }
 `;
