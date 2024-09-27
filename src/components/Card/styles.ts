@@ -39,11 +39,10 @@ export const CardContainer = styled.div`
 
 export const CardImage = styled.img`
   width: 100%;
-  height: 85%;
   object-fit: cover;
 
   @supports not (-webkit-touch-callout: none) {
-    aspect-ratio: unset; /* Remove o aspect-ratio no Safari iOS */
+    aspect-ratio: 3/4; /* Remove o aspect-ratio no Safari iOS */
     height: auto;
   }
 
