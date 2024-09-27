@@ -34,7 +34,7 @@ export const CartHeader = styled.div`
   }
 
   @media (max-width: 840px) {
-    width: 40rem;
+    width: 100%;
     font-size: 0.8rem;
   }
 `;
