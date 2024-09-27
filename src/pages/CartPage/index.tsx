@@ -76,8 +76,9 @@ export function CartPage() {
 
     const handleCalculateFreight = async () => {
         if (isCepValid) {
+            setFreightCost(null);  // Resetar o valor do frete antes de calcular
             try {
-                // Use a URL do backend que está hospedado no Railway
+                console.log(`Iniciando cálculo de frete para o CEP: ${cep}`);
                 const response = await axios.post(`${backendUrl}/calculate-shipping`, {
                     from: { postal_code: "52030010" },
                     to: { postal_code: cep },
@@ -88,9 +89,12 @@ export function CartPage() {
                         weight: 0.9
                     }
                 });
-
+    
+                console.log('Resposta da API de frete:', response.data);
+    
                 if (response.data.pacPrice) {
                     setFreightCost(parseFloat(response.data.pacPrice));
+                    console.log(`Frete calculado: R$ ${response.data.pacPrice}`);
                 } else {
                     throw new Error('Preço do PAC não encontrado');
                 }
@@ -102,6 +106,7 @@ export function CartPage() {
             alert('Por favor, insira um CEP válido com 8 dígitos.');
         }
     };
+    
 
     const message = generateWhatsAppMessage({
         cartItems,
