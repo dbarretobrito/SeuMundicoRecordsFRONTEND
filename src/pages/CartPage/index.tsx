@@ -114,8 +114,7 @@ export function CartPage() {
     const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
     return (
-        <CartContainer>
-            <h2>Seu Carrinho</h2>
+        <CartContainer>            
             <CartContent>
                 <CartHeader>
                     <span>Imagem</span>
@@ -168,16 +167,16 @@ export function CartPage() {
                 </CalculateFreightButton>
             </FreightContainer>
             <FinishButton 
-    style={{ display: freightCost ? 'flex' : 'none' }} 
+    style={{ display: cartItems.length > 0 && freightCost ? 'flex' : 'none' }} 
     disabled={freightCost === null}
 >
-
-                {freightCost !== null ? (
-                    <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                        CONCLUIR <FaWhatsapp size={20} />
-                    </a>
-                ) : null}
-            </FinishButton>
+    {freightCost !== null ? (
+        <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+            CONCLUIR <FaWhatsapp size={20} />
+        </a>
+    ) : null}
+</FinishButton>
+''
             <AddMoreButton onClick={() => window.location.href = '/'}>
                 ADICIONAR MAIS PRODUTOS
             </AddMoreButton>
