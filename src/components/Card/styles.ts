@@ -36,6 +36,7 @@ export const CardContainer = styled.div`
 `;
 
 
+
 export const CardImage = styled.img`
   width: 100%; /* A largura da imagem será sempre 100% */
   height: auto; /* Altura automática para manter a proporção */
