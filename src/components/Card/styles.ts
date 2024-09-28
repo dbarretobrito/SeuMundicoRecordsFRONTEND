@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
 export const CardContainer = styled.div`
-  width: 28rem;
-  max-width: 18rem;
-  height: 24rem; /* Remova a altura fixa para permitir ajuste automático */
+  width: 20rem;
+  height: 25rem; /* Remova a altura fixa para permitir ajuste automático */
   background-color: #141414;
-  padding: 0.78rem;
+  padding: 0;
   margin: 0 auto;
   margin-top: 1rem;
   overflow: hidden;
@@ -13,19 +12,21 @@ export const CardContainer = styled.div`
   flex-direction: column;
   cursor: pointer;
   box-sizing: border-box;
+  align-items: center;
 
   @media (max-width: 600px) {
     max-width: 15rem;
   }
 
   @media (max-width: 480px) {
-    max-width: 13rem;
+    width: 10rem;
+    height: 13.3rem;
   }
 `;
 
 export const CardImage = styled.img`
-  width: 100%;
-  height: 85%; /* Reduzimos ligeiramente para dar mais espaço ao conteúdo */
+  width: 75%;
+  height: 100%; /* Reduzimos ligeiramente para dar mais espaço ao conteúdo */
   object-fit: cover;
 `;
 
@@ -67,9 +68,9 @@ export const CardContent = styled.div`
 
   @media (max-width: 480px) {
     font-size: .5rem;
-    margin-top: 5px;
+    margin-top: 2px;
     span {
-      font-size: 0.6rem;
+      font-size: 0.5rem;
     }
   }
 `;

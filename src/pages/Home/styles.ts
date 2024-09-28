@@ -70,7 +70,7 @@ export const ProductGrid = styled.div`
 
   @media (max-width: 480px) {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 0;
   }
 
   @media (max-width: 360px) {
