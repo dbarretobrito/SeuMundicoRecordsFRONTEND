@@ -49,7 +49,7 @@ export const ProductGrid = styled.div`
   grid-template-columns: repeat(4, 1fr);
   max-width: 100%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 20px 0;
   gap: 0; /* Adiciona espaçamento entre os itens */
 
   @media (max-width: 1200px) {
