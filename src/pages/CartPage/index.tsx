@@ -79,22 +79,17 @@ export function CartPage() {
             setFreightCost(null);  // Resetar o valor do frete antes de calcular
             try {
                 console.log(`Iniciando cálculo de frete para o CEP: ${cep}`);
-                const response = await axios.post(`${backendUrl}/calculate-shipping`, {
-                    from: { postal_code: "90035121" },
+                const response = await axios.post(`${backendUrl}/calculate-shipping-correios`, {
                     to: { postal_code: cep },
                     package: {
                         height: 15,
                         width: 15,
                         length: 15,
                         weight: 1
-                    },
-                    options: {
-                        receipt: false,
-                        own_hand: false
                     }
                 });
     
-                console.log('Resposta da API de frete:', response.data);
+                console.log('Resposta da API dos Correios:', response.data);
     
                 if (response.data.pacPrice) {
                     setFreightCost(parseFloat(response.data.pacPrice));
