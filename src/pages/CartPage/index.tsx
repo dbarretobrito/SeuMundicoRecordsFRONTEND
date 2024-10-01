@@ -80,13 +80,17 @@ export function CartPage() {
             try {
                 console.log(`Iniciando cálculo de frete para o CEP: ${cep}`);
                 const response = await axios.post(`${backendUrl}/calculate-shipping`, {
-                    from: { postal_code: "52030010" },
+                    from: { postal_code: "90035121" },
                     to: { postal_code: cep },
                     package: {
                         height: 15,
                         width: 15,
                         length: 15,
-                        weight: 0.9
+                        weight: 1
+                    },
+                    options: {
+                        receipt: false,
+                        own_hand: false
                     }
                 });
     
