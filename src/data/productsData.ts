@@ -284,7 +284,7 @@ export const products: Product[] = [
   },
   {
     id: 4, 
-    name: 'Hello Nasty', 
+    name: 'Beastie Boys (Hello Nasty)', 
     images: { 
       front: HelloNastyAmarelaFRONT2,
       back: HelloNastyBrancoFRONT2,
@@ -292,11 +292,11 @@ export const products: Product[] = [
     description: "",
     price: 115,
     year: 1998,
-    tags: ['Bestie Boys', 'Hello Nasty', '1998']
+    tags: ['Beastie Boys', 'Hello Nasty', '1998']
   },
   {
     id: 5, 
-    name: "Don't Look Back", 
+    name: "Bob Dylan (Don't Look Back)", 
     images: { 
       front: DontLookBackFRONT3,
       back: DontLookBackFRONT,

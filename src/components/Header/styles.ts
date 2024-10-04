@@ -20,8 +20,8 @@ export const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
     img {
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
     }
     p {
       font-size: 1.18rem;
@@ -63,7 +63,7 @@ export const HeaderContainer = styled.header`
     }
 
     .nav-links a {
-      font-size: 0.7rem;
+      font-size: 0.8rem;
       margin: 0 2px; /* Ajuste o espaçamento entre os elementos */
     }
   }
@@ -91,13 +91,26 @@ export const LogoLink = styled(Link)`
     display: flex;
     align-items: center;
     img {
-      width: 50px;
-      height: 50px;
+      width: 44px;
+      height: 44px;
     }
     p {
-      font-size: 1.18rem;
+      font-size: 0.98rem;
       font-weight: 600;
       line-height: 1;
     }
+  }
+
+  @media (max-width: 480px) {
+    .logo {
+      img {
+        width: 41px;
+        height: 41px;
+      }
+      p {
+      font-size: 0.93rem;
+      font-weight: 600;
+      line-height: 1.05;
+    }}
   }
 `;
