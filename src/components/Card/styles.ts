@@ -25,8 +25,8 @@ export const CardContainer = styled.div`
 `;
 
 export const CardImage = styled.img`
-  width: 75%;
-  height: 100%; /* Reduzimos ligeiramente para dar mais espaço ao conteúdo */
+  width: 90%;
+  height: 79%; /* Reduzimos ligeiramente para dar mais espaço ao conteúdo */
   object-fit: cover;
 `;
 
