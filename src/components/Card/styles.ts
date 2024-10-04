@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const CardContainer = styled.div`
-  width: 20rem;
-  height: 25rem; /* Remova a altura fixa para permitir ajuste automático */
+  width: 19rem;
+  height: 24rem; /* Remova a altura fixa para permitir ajuste automático */
   background-color: #141414;
   padding: 0;
   margin: 0 auto;
