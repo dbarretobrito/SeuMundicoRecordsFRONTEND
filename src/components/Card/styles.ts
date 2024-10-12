@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const CardContainer = styled.div`
-  width: 19rem;
+  width: 18rem;
   height: 24rem; /* Remova a altura fixa para permitir ajuste automático */
   background-color: #141414;
   padding: 0;

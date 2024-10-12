@@ -64,15 +64,17 @@ export function CartPage() {
     const { cartItems, removeFromCart, updateQuantity, totalAmount } = cartContext;
 
     const validateCep = (cep: string) => {
+        const cleanedCep = cep.replace('-', ''); // Remove o traço, se houver
         const cepRegex = /^[0-9]{8}$/;
-        return cepRegex.test(cep);
+        return cepRegex.test(cleanedCep);
     };
 
     const handleCepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setCep(value);
-        setIsCepValid(validateCep(value)); // Valida o CEP em tempo real
+        const value = e.target.value.replace(/\D/g, ''); // Remove qualquer caractere que não seja número
+        setCep(value); // Armazena o CEP sem traço
+        setIsCepValid(validateCep(value)); // Valida o CEP
     };
+    
 
     const handleCalculateFreight = async () => {
         if (isCepValid) {
@@ -80,13 +82,13 @@ export function CartPage() {
             try {
                 console.log(`Iniciando cálculo de frete para o CEP: ${cep}`);
                 const response = await axios.post(`${backendUrl}/calculate-shipping`, {
-                    from: { postal_code: "52030010" },
+                    from: { postal_code: "90035121" },
                     to: { postal_code: cep },
                     package: {
                         height: 15,
                         width: 15,
                         length: 15,
-                        weight: 0.9
+                        weight: 1
                     }
                 });
     
@@ -165,7 +167,7 @@ export function CartPage() {
                     type="text"
                     value={cep}
                     onChange={handleCepChange} // Usando a nova função de handle para validar o CEP
-                    placeholder="Digite o CEP"
+                    placeholder="Digite seu CEP"
                 />
                 <CalculateFreightButton onClick={handleCalculateFreight} disabled={!isCepValid}>
                     CALCULAR
