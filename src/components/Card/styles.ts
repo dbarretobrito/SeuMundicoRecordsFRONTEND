@@ -35,7 +35,7 @@ export const CardContent = styled.div`
   padding: 10px 0;
   text-align: center;
   height: 20%; /* Ajuste a altura para acomodar nome e preço */
-  font-size: 1rem;
+  font-size: 0.85rem;
 
   display: flex;
   flex-direction: column;

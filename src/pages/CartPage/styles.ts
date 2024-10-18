@@ -132,11 +132,15 @@ export const RemoveButton = styled.button`
   font-family: 'Poppins', sans-serif;
   justify-self: center;
   align-self: center;
+  position: sticky; /* Para que fique fixo ao rolar */
+  top: 0; /* Para que fique sempre visível no topo do item */
+  right: 0; /* Alinhar à direita */
 
   &:hover {
     color: darkred;
   }
 `;
+
 
 export const TotalAmount = styled.div`
   display: flex;
@@ -236,7 +240,7 @@ export const CalculateFreightButton = styled.button`
 
 export const FinishButton = styled.button`
   display: flex; /* Remova o controle de exibição baseado na prop visible */
-  width: 16.5rem;
+  width: 14.5rem;
   background-color: #333;
   color: white;
   height: 3rem;
@@ -246,9 +250,9 @@ export const FinishButton = styled.button`
   font-family: 'Poppins', sans-serif;
   font-size: 1rem;
   align-self: flex-end;
-  align-items: center; /* Alinha itens verticalmente ao centro */
-  justify-content: center; /* Alinha itens horizontalmente ao centro */
-  gap: 0.5rem; /* Espaçamento entre o texto e o ícone */
+  align-items: center; 
+  justify-content: center; 
+  gap: 0.5rem; 
 
   &:hover {
     background-color: #555;
@@ -274,6 +278,7 @@ export const FinishButton = styled.button`
 
   @media (max-width: 480px) {
     width: 100%;
+    font-size: 1rem;
   }
 `;
 
@@ -295,4 +300,17 @@ export const AddMoreButton = styled.button`
   @media (max-width: 480px) {
     width: 100%;
   }`;
+
+  // Adicione isso ao seu arquivo de estilos
+export const CepInput = styled.input`
+height: 2.99rem;
+padding: 10px;
+border: none;
+font-size: 15.5px;
+width: 150px; // Ajuste a largura conforme necessário
+&:focus {
+  outline: none;
+}
+`;
+
 

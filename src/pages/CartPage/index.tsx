@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react';
-import axios from 'axios';
 import { CartContext } from '../../context/CartContext';
 import {
     CartContainer,
@@ -14,10 +13,8 @@ import {
     RemoveButton,
     TotalAmount,
     AddMoreButton,
-    FreightContainer,
-    FreightInput,
-    CalculateFreightButton,
-    FinishButton
+    FinishButton,
+    CepInput // Certifique-se de importar o estilo para o input de CEP
 } from './styles';
 import { FaWhatsapp } from 'react-icons/fa';
 
@@ -33,89 +30,38 @@ interface CartItem {
 interface GenerateWhatsAppMessageParams {
     cartItems: CartItem[];
     totalAmount: number;
-    shippingCost: number | null;
-    zipCode: string;
+    cep: string; // Adicionando CEP como parâmetro
 }
 
 const generateWhatsAppMessage = ({
     cartItems,
     totalAmount,
-    shippingCost,
-    zipCode
+    cep, // Adicionando CEP
 }: GenerateWhatsAppMessageParams): string => {
     const itemDetails = cartItems.map(item =>
         `- ${item.quantity}x ${item.name} (Tamanho ${item.size})`
     ).join('\n');
 
-    return `✷ Olá! Quero concluir minha compra:\n\n${itemDetails}\n\nCEP: ${zipCode}\nFrete: R$ ${(shippingCost || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}\n\nTotal: R$ ${(totalAmount + (shippingCost || 0)).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+    return `✷ Olá! Quero concluir minha compra:\n\n${itemDetails}\n\nTotal: R$ ${totalAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}\n\nCEP: ${cep}`;
 };
 
 export function CartPage() {
     const cartContext = useContext(CartContext);
-    const backendUrl = import.meta.env.VITE_BACKEND_URL;
-    const [cep, setCep] = useState('');
-    const [freightCost, setFreightCost] = useState<number | null>(null);
-    const [isCepValid, setIsCepValid] = useState(false);
+    const [cep, setCep] = useState(''); // Estado para armazenar o CEP
 
+    // Verifica se o contexto é indefinido
     if (!cartContext) {
         return <div>Erro ao carregar o carrinho. Por favor, recarregue a página.</div>;
     }
 
     const { cartItems, removeFromCart, updateQuantity, totalAmount } = cartContext;
 
-    const validateCep = (cep: string) => {
-        const cleanedCep = cep.replace('-', ''); // Remove o traço, se houver
-        const cepRegex = /^[0-9]{8}$/;
-        return cepRegex.test(cleanedCep);
-    };
-
-    const handleCepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value.replace(/\D/g, ''); // Remove qualquer caractere que não seja número
-        setCep(value); // Armazena o CEP sem traço
-        setIsCepValid(validateCep(value)); // Valida o CEP
-    };
-    
-
-    const handleCalculateFreight = async () => {
-        if (isCepValid) {
-            setFreightCost(null);  // Resetar o valor do frete antes de calcular
-            try {
-                console.log(`Iniciando cálculo de frete para o CEP: ${cep}`);
-                const response = await axios.post(`${backendUrl}/calculate-shipping`, {
-                    from: { postal_code: "90035121" },
-                    to: { postal_code: cep },
-                    package: {
-                        height: 15,
-                        width: 15,
-                        length: 15,
-                        weight: 1
-                    }
-                });
-    
-                console.log('Resposta da API de frete:', response.data);
-    
-                if (response.data.pacPrice) {
-                    setFreightCost(parseFloat(response.data.pacPrice));
-                    console.log(`Frete calculado: R$ ${response.data.pacPrice}`);
-                } else {
-                    throw new Error('Preço do PAC não encontrado');
-                }
-            } catch (error) {
-                console.error('Erro ao calcular o frete:', error);
-                alert('Erro ao calcular o frete. Verifique o console para mais detalhes.');
-            }
-        } else {
-            alert('Por favor, insira um CEP válido com 8 dígitos.');
-        }
-    };
-    
-
     const message = generateWhatsAppMessage({
         cartItems,
         totalAmount,
-        shippingCost: freightCost,
-        zipCode: cep
+        cep, // Passando o CEP para a mensagem
     });
+
     const encodedMessage = encodeURIComponent(message);
     const phoneNumber = '5581999847081';
     const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
@@ -131,7 +77,7 @@ export function CartPage() {
                     <span>Preço</span>
                     <span></span>
                 </CartHeader>
-                {cartItems.map((item) => (
+                {cartItems.map((item: CartItem) => (
                     <CartItemContainer key={item.id}>
                         <ProductImage src={item.image} alt={item.name} />
                         <ProductName>{item.name}</ProductName>
@@ -148,41 +94,25 @@ export function CartPage() {
             </CartContent>
             <TotalAmount>
                 {cartItems.length > 0 && (
-                    <>
-                        {freightCost !== null && (
-                            <div className="amount-freight">
-                                <p>Frete:</p>
-                                <p>R$ {freightCost.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
-                            </div>
-                        )}
-                        <div className="amount-total">
-                            <span>Total:</span>
-                            <p>R$ {(totalAmount + (freightCost || 0)).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
-                        </div>
-                    </>
+                    <div className="amount-total">
+                        <span>Total:</span>
+                        <p>R$ {totalAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
+                    </div>
                 )}
             </TotalAmount>
-            <FreightContainer>
-                <FreightInput
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <CepInput
                     type="text"
-                    value={cep}
-                    onChange={handleCepChange} // Usando a nova função de handle para validar o CEP
                     placeholder="Digite seu CEP"
+                    value={cep}
+                    onChange={(e) => setCep(e.target.value)} // Atualiza o estado com o valor do input
                 />
-                <CalculateFreightButton onClick={handleCalculateFreight} disabled={!isCepValid}>
-                    CALCULAR
-                </CalculateFreightButton>
-            </FreightContainer>
-            <FinishButton 
-                style={{ display: cartItems.length > 0 && freightCost ? 'flex' : 'none' }} 
-                disabled={freightCost === null}
-            >
-                {freightCost !== null ? (
+                <FinishButton>
                     <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                        CONCLUIR <FaWhatsapp size={20} />
+                        COMPRAR<FaWhatsapp size={20} />
                     </a>
-                ) : null}
-            </FinishButton>
+                </FinishButton>
+            </div>
             <AddMoreButton onClick={() => window.location.href = '/'}>
                 ADICIONAR MAIS PRODUTOS
             </AddMoreButton>

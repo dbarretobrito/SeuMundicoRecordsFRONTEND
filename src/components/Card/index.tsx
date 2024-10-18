@@ -1,18 +1,22 @@
 import { CardContainer, CardImage, CardContent } from './styles';
 
 interface CardProps {
-  image: string;
-  name: string;
-  price: number;
+  image: string; // URL da imagem
+  name: string; // Nome do produto
+  price: number | string; // Alterar para permitir string
 }
 
 export function Card({ image, name, price }: CardProps) {
+  // Verifique se o price é um número e, caso contrário, converta-o
+  const formattedPrice =
+    typeof price === 'number' ? price.toFixed(2) : parseFloat(price).toFixed(2);
+
   return (
     <CardContainer>
-      <CardImage src={image} alt={name} draggable="false" />
-      <CardContent className='card-content'>
-        <p>{name}</p>
-        <span>{price.toFixed(2)}</span>
+      <CardImage src={image} alt={`Imagem de ${name}`} />
+      <CardContent>
+        <h3>{name}</h3>
+        <p>R$ {formattedPrice}</p>
       </CardContent>
     </CardContainer>
   );

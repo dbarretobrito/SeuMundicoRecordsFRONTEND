@@ -34,6 +34,10 @@ export const SearchInput = styled.input`
   border: 1px solid #ccc;
   font-size: 0.9rem;
   font-family: 'Poppins', sans-serif;
+
+  &:focus {
+    outline: none;
+    }
 `;
 
 // Botão de pesquisa ajustado em linha com o input

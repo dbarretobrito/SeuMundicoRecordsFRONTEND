@@ -1,10 +1,40 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import axios from 'axios';
 import { BreadcrumbContainer, SearchContainer, SearchInput, ResultsContainer } from './styles';
 import { Card } from '../../components/Card';
-import { products } from '../../data/productsData';
+
+// Ajuste na interface Product para refletir a estrutura correta do modelo de produto
+interface Product {
+  id: number;
+  name: string;
+  front_image: string; // Campo atualizado para corresponder ao modelo do backend
+  back_image?: string;
+  detail_image?: string;
+  detail2_image?: string;
+  price: number;
+  tags?: string[];
+  description: string;
+}
 
 export function SearchPage() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [products, setProducts] = useState<Product[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch products from backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get<Product[]>(`${import.meta.env.VITE_BACKEND_URL}/api/products`);
+        setProducts(response.data);
+      } catch (err) {
+        setError('Erro ao buscar produtos.');
+        console.error(err);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const filteredProducts = useMemo(() => {
     if (!searchQuery.trim()) {
@@ -22,7 +52,7 @@ export function SearchPage() {
         return regex.test(searchableText);
       });
     });
-  }, [searchQuery]);
+  }, [searchQuery, products]);
 
   return (
     <div>
@@ -38,11 +68,12 @@ export function SearchPage() {
         />
       </SearchContainer>
       <ResultsContainer>
+        {error && <p>{error}</p>}
         {filteredProducts.length > 0 ? (
           filteredProducts.map(product => (
             <a href={`/product/${product.id}`} key={product.id}>
               <Card 
-                image={product.images.front}
+                image={product.front_image} // Ajustado para usar front_image diretamente
                 name={product.name}
                 price={product.price}
               />

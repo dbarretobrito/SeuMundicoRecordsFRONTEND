@@ -58,22 +58,24 @@ export const ProductContainer = styled.div`
       }
     }
   }
-  `;
-  export const BuyButton = styled.button<{ $isSelected: boolean }>`
-    width: 15rem; 
-    height: 50px; 
-    border: 1px solid ${({ $isSelected }) => ($isSelected ? '#333' : '#ccc')}; 
-    background-color: ${({ $isSelected }) => ($isSelected ? '#333' : 'transparent')}; 
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.9rem;
-    cursor: pointer;
-    margin-top: 20px;
+`;
 
-    &:hover {
-      background-color: #333;
-      border-color: #333;
-    }`
+export const BuyButton = styled.button<{ $isSelected: boolean }>`
+  width: 15rem; 
+  height: 50px; 
+  border: 1px solid ${({ $isSelected }) => ($isSelected ? '#333' : '#ccc')}; 
+  background-color: ${({ $isSelected }) => ($isSelected ? '#333' : 'transparent')}; 
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-top: 20px;
+
+  &:hover {
+    background-color: #333;
+    border-color: #333;
+  }
+`;
 
 export const ProductImage = styled.img`
   width: 50%;
@@ -117,6 +119,24 @@ export const Thumbnail = styled.img`
 
   &:hover {
     border-color: white;
+  }
+`;
+
+export const ImageGallery = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+
+  @media (max-width: 740px) {
+    width: 100%;
+    align-items: center;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
   }
 `;
 
