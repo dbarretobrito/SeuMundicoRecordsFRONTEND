@@ -30,7 +30,7 @@ export const LoginPage = () => {
       // Redireciona para a página de edição de produtos
       navigate('/admin/products');
     } catch {
-      setError('Credenciais inválidas. Tente novamente.');
+      setError('Login e/ou senha inválidos. Tente novamente.');
     }
   };
 

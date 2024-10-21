@@ -13,7 +13,7 @@ export interface Product {
   detail_image?: File | string;
   detail2_image?: File | string;
   description?: string;
-  year: number;
+  year?: number;
   tags: string | string[];
 }
 
@@ -77,6 +77,7 @@ export const updateProduct = async (id: number, productData: Product) => {
     });
     return response.data;
   } catch (error) {
+    console.error('Erro ao atualizar o produto:', error);
     // Lida com o erro de forma mais específica
     if (axios.isAxiosError(error)) {
       const errorMessage = error.response?.data?.message || 'Erro ao atualizar o produto.';

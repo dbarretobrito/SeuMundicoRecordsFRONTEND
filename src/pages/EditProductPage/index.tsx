@@ -7,8 +7,8 @@ import { Product } from '../../services/productService'; // Importe a interface 
 
 export function EditProductPage() {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate(); // Para navegação
-  const [product, setProduct] = useState<Product | null>(null); // Inicializa como null
+  const navigate = useNavigate();
+  const [product, setProduct] = useState<Product | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -18,12 +18,11 @@ export function EditProductPage() {
         const response = await axios.get<Product>(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`);
         const productFromBackend = response.data;
 
-        // Verifica se tags é uma string antes de fazer o split
         setProduct({
           ...productFromBackend,
           tags: typeof productFromBackend.tags === 'string'
             ? productFromBackend.tags.split(',')
-            : productFromBackend.tags || [],  // Se já for array ou undefined
+            : productFromBackend.tags || [],
         });
       } catch (err) {
         setError('Erro ao buscar produto.');
@@ -35,29 +34,43 @@ export function EditProductPage() {
   }, [id]);
 
   const handleSave = async () => {
-    if (!product) return; // Verifica se product é null
-  
+    if (!product) return;
+
     try {
       await updateProduct(Number(id), {
         ...product,
-        // Garante que tags seja sempre um array de strings
         tags: Array.isArray(product.tags) ? product.tags : product.tags ? [product.tags] : [],
       });
       setSuccess('Produto atualizado com sucesso!');
-      navigate('/products'); // Redireciona para a lista de produtos após a atualização
+      navigate('/admin/products');
     } catch (err) {
-      setError((err as Error).message || 'Erro ao atualizar o produto.'); // Captura o erro da função updateProduct
+      setError((err as Error).message || 'Erro ao atualizar o produto.');
       console.error(err);
     }
-  };  
+  };
 
   const handleLogout = () => {
-    // Remove o token do localStorage
     localStorage.removeItem('adminToken');
-    // Redireciona para a página de login
     navigate('/admin/login');
   };
 
+  const handleImageUpload = (setter: (url: string) => void) => {
+    // Widget do Cloudinary
+    window.cloudinary.openUploadWidget(
+      {
+        cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
+        uploadPreset: import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET,
+      },
+      (error: unknown | null, result: CloudinaryUploadWidgetResult) => { // Corrigido
+        if (result?.event === 'success') { // Adicionado verificação de resultado
+          setter(result.info.secure_url);
+        } else {
+          console.error(error); // Adicionando log de erro, se necessário
+        }
+      }
+    );
+  };
+  
   return (
     <div>
       <h1>Editar Produto</h1>
@@ -65,7 +78,7 @@ export function EditProductPage() {
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {success && <p style={{ color: 'green' }}>{success}</p>}
       
-      {product && ( // Verifica se product não é null antes de renderizar os campos
+      {product && (
         <>
           <div>
             <label htmlFor="name">Nome do Produto:</label>
@@ -90,11 +103,79 @@ export function EditProductPage() {
             <input
               type="text"
               id="tags"
-              value={Array.isArray(product.tags) ? product.tags.join(',') : product.tags || ''} // Verifica se é array
+              value={Array.isArray(product.tags) ? product.tags.join(',') : product.tags || ''}
               onChange={(e) => setProduct({ ...product, tags: e.target.value.split(',') })}
             />
           </div>
-          <button onClick={handleSave}>Salvar</button> {/* Botão para salvar o produto */}
+          <div>
+            <label htmlFor="description">Descrição:</label>
+            <textarea
+              id="description"
+              value={product.description || ''}
+              onChange={(e) => setProduct({ ...product, description: e.target.value })}
+            />
+          </div>
+          <div>
+            <label htmlFor="year">Ano:</label>
+            <input
+              type="number"
+              id="year"
+              value={product.year || ''}
+              onChange={(e) => setProduct({ ...product, year: Number(e.target.value) })}
+            />
+          </div>
+          
+          {/* Campos para as imagens */}
+          <div>
+            <label htmlFor="front_image">Imagem Frontal:</label>
+            <input
+              type="text"
+              id="front_image"
+              value={typeof product.front_image === 'string' ? product.front_image : ''}
+              onChange={(e) => setProduct({ ...product, front_image: e.target.value })}
+            />
+            <button onClick={() => handleImageUpload((url) => setProduct({ ...product, front_image: url }))}>
+              Upload Imagem Frontal
+            </button>
+          </div>
+          <div>
+            <label htmlFor="back_image">Imagem Traseira:</label>
+            <input
+              type="text"
+              id="back_image"
+              value={typeof product.back_image === 'string' ? product.back_image : ''}
+              onChange={(e) => setProduct({ ...product, back_image: e.target.value })}
+            />
+            <button onClick={() => handleImageUpload((url) => setProduct({ ...product, back_image: url }))}>
+              Upload Imagem Traseira
+            </button>
+          </div>
+          <div>
+            <label htmlFor="detail_image">Imagem Detalhe:</label>
+            <input
+              type="text"
+              id="detail_image"
+              value={typeof product.detail_image === 'string' ? product.detail_image : ''}
+              onChange={(e) => setProduct({ ...product, detail_image: e.target.value })}
+            />
+            <button onClick={() => handleImageUpload((url) => setProduct({ ...product, detail_image: url }))}>
+              Upload Imagem Detalhe
+            </button>
+          </div>
+          <div>
+            <label htmlFor="detail2_image">Imagem Detalhe 2:</label>
+            <input
+              type="text"
+              id="detail2_image"
+              value={typeof product.detail2_image === 'string' ? product.detail2_image : ''}
+              onChange={(e) => setProduct({ ...product, detail2_image: e.target.value })}
+            />
+            <button onClick={() => handleImageUpload((url) => setProduct({ ...product, detail2_image: url }))}>
+              Upload Imagem Detalhe 2
+            </button>
+          </div>
+
+          <button onClick={handleSave}>Salvar</button>
         </>
       )}
     </div>
