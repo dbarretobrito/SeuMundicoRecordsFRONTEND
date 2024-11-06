@@ -163,8 +163,8 @@ export const SizeSelector = styled.div`
 `;
 
 export const SizeButton = styled.button<{ $isSelected: boolean }>`
-  width: 45px; 
-  height: 45px; 
+  width: 50px; 
+  height: 50px; 
   border: 1px solid ${({ $isSelected }) => ($isSelected ? '#333' : '#ccc')}; 
   background-color: ${({ $isSelected }) => ($isSelected ? '#333' : 'transparent')}; 
   color: white;
