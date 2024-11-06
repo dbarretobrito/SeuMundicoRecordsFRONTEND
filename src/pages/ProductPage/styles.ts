@@ -159,6 +159,13 @@ export const SizeSelector = styled.div`
     display: flex;
     gap: 10px;
   }
+
+  span {
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-top: 4px;
+  }
 `;
 
 export const SizeButton = styled.button<{ $isSelected: boolean }>`

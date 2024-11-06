@@ -4,6 +4,8 @@ import { useCart } from '../../context/useCart';
 import { Link } from 'react-router-dom'
 import { ProductContainer, ProductImage, BreadcrumbContainer, ErrorMessage, SizeSelector, SizeButton, ConfirmationMessage, ThumbnailsContainer, Thumbnail, ModalOverlay, ModalContent, ModalImage, BuyButton } from './styles';
 import ReactSlick from "react-slick";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRulerHorizontal } from '@fortawesome/free-solid-svg-icons';
 import { getProductById } from '../../services/productService'; // Importa a função para buscar produto
 import { Product } from '../../types/Product';
 
@@ -16,6 +18,7 @@ export function ProductPage() {
   const [error, setError] = useState<string | null>(null);
   const [confirmationMessage, setConfirmationMessage] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isMeasuresModalOpen, setIsMeasuresModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
 
   useEffect(() => {
@@ -79,6 +82,13 @@ export function ProductPage() {
     setIsModalOpen(false);
   };
 
+  const closeMeasuresModal = () => setIsMeasuresModalOpen(false);
+
+  const handleOpenMeasuresModal = () => {
+    setIsMeasuresModalOpen(true);
+  };
+
+
   return (
     <div>
       <BreadcrumbContainer>
@@ -104,6 +114,10 @@ export function ProductPage() {
               <SizeButton $isSelected={selectedSize === 'GG'} onClick={() => handleSizeSelect('GG')}>GG</SizeButton>
               <SizeButton $isSelected={selectedSize === '3G'} onClick={() => handleSizeSelect('3G')}>3G</SizeButton>
             </div>
+            <span onClick={handleOpenMeasuresModal} style={{ cursor: 'pointer' }}>
+              <FontAwesomeIcon icon={faRulerHorizontal} style={{ marginRight: '4px', fontSize: '14px' }} />
+              Ver Medidas
+            </span>
           </SizeSelector>
           {error && <ErrorMessage>{error}</ErrorMessage>}
           <BuyButton $isSelected={false} onClick={handleAddToCart}>COMPRAR</BuyButton>
@@ -122,6 +136,42 @@ export function ProductPage() {
           </ModalContent>
         </ModalOverlay>
       )}
+      {/* Modal de Medidas */}
+      {isMeasuresModalOpen && (
+        <ModalOverlay onClick={closeMeasuresModal} style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 1000
+        }}>
+          <ModalContent onClick={(e) => e.stopPropagation()} style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <img
+              src="https://res.cloudinary.com/dt31tve3m/image/upload/v1730916196/medidasseumundicorecords_djyiln.jpg"
+              alt="Guia de Medidas"
+              style={{
+                width: '100%',  // Faz a imagem ocupar 90% da largura da tela por padrão
+                maxWidth: '500px',  // Define um limite máximo para a imagem
+                height: 'auto',
+                display: 'block',
+              }}
+            />
+          </ModalContent>
+        </ModalOverlay>
+      )}
+
+
+
+
     </div>
   );
 }
