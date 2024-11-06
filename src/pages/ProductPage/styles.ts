@@ -234,3 +234,19 @@ export const ModalImage = styled.img`
     width: 100%; /* Mantém a imagem em tela cheia em dispositivos móveis */
   }
 `;
+
+export const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 42px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #fff; /* ou outra cor que combine com o design */
+
+  &:hover {
+    color: #ff4d4d; /* cor avermelhada no hover */
+  }
+
+`;

@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useCart } from '../../context/useCart';
 import { Link } from 'react-router-dom'
-import { ProductContainer, ProductImage, BreadcrumbContainer, ErrorMessage, SizeSelector, SizeButton, ConfirmationMessage, ThumbnailsContainer, Thumbnail, ModalOverlay, ModalContent, ModalImage, BuyButton } from './styles';
+import { ProductContainer, ProductImage, BreadcrumbContainer, ErrorMessage, SizeSelector, SizeButton, ConfirmationMessage, ThumbnailsContainer, Thumbnail, ModalOverlay, ModalContent, ModalImage, BuyButton, CloseButton } from './styles';
 import ReactSlick from "react-slick";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRulerHorizontal } from '@fortawesome/free-solid-svg-icons';
@@ -126,6 +126,7 @@ export function ProductPage() {
       {isModalOpen && (
         <ModalOverlay onClick={closeModal}>
           <ModalContent onClick={(e) => e.stopPropagation()}>
+            <CloseButton onClick={closeModal}>×</CloseButton>
             <ReactSlick initialSlide={currentImageIndex}>
               {images.map((imgSrc, index) => (
                 <div key={index}>
