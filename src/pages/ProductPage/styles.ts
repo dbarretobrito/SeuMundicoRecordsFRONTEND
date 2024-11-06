@@ -178,8 +178,8 @@ export const SizeButton = styled.button<{ $isSelected: boolean }>`
   }
 
   @media (max-width: 740px) {
-    width: 40px; 
-    height: 40px;
+    width: 45px; 
+    height: 45px;
     font-size: 0.8rem;
   }
 `;
