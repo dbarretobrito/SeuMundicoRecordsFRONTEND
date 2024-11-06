@@ -1,17 +1,17 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useCart } from '../../context/useCart';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import { ProductContainer, ProductImage, BreadcrumbContainer, ErrorMessage, SizeSelector, SizeButton, ConfirmationMessage, ThumbnailsContainer, Thumbnail, ModalOverlay, ModalContent, ModalImage, BuyButton } from './styles';
 import ReactSlick from "react-slick";
-import { getProductById } from '../../services/productService'; // Importa a função para buscar produto
+import { getProductByName } from '../../services/productService'; // Alterado para importar a função de buscar por nome
 import { Product } from '../../types/Product';
 
 export function ProductPage() {
-  const { id } = useParams<{ id: string }>();
+  const { name } = useParams<{ name: string }>(); // Alterado para pegar "name"
   const navigate = useNavigate();
   const { addToCart } = useCart();
-  const [product, setProduct] = useState<Product | null>(null); // Estado do produto
+  const [product, setProduct] = useState<Product | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [confirmationMessage, setConfirmationMessage] = useState<boolean>(false);
@@ -20,16 +20,20 @@ export function ProductPage() {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      if (id) {
-        const fetchedProduct = await getProductById(parseInt(id)); // Busca o produto pelo ID
-        setProduct(fetchedProduct);
+      if (name) {
+        try {
+          const fetchedProduct = await getProductByName(name); // Agora usa a função para buscar pelo nome
+          setProduct(fetchedProduct);
+        } catch {
+          setError('Produto não encontrado');
+        }
       }
     };
     fetchProduct();
-  }, [id]);
+  }, [name]);
 
   if (!product) {
-    return <div>✷</div>;
+    return <div>✷</div>; // Mostrar algo enquanto o produto não é carregado
   }
 
   const handleAddToCart = () => {
@@ -38,13 +42,12 @@ export function ProductPage() {
       return;
     }
 
-    // Garante que não estamos passando valores undefined
     addToCart({
-      id: product.id || 0, // Define um valor padrão (ex: 0)
-      name: product.name || 'Nome do Produto', // Define um valor padrão
-      image: typeof product.front_image === 'string' ? product.front_image : '', // Garante que seja string
-      description: product.description || 'Sem descrição', // Define um valor padrão
-      price: product.price || 0, // Define um valor padrão (ex: 0)
+      id: product.id || 0,
+      name: product.name || 'Nome do Produto',
+      image: typeof product.front_image === 'string' ? product.front_image : '',
+      description: product.description || 'Sem descrição',
+      price: product.price || 0,
       size: selectedSize,
       quantity: 1
     });
@@ -60,7 +63,7 @@ export function ProductPage() {
 
   const handleSizeSelect = (size: string) => {
     setSelectedSize(size);
-    setError(null); // Limpa o erro se um tamanho for selecionado
+    setError(null);
   };
 
   const images = [

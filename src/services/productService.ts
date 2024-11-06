@@ -36,6 +36,22 @@ export const getProductById = async (productId: number): Promise<Product> => {
   }
 };
 
+export const getProductByName = async (productName: string): Promise<Product> => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/products/name/${productName}`, {
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    });
+
+    return response.data; // Retorna o produto encontrado
+  } catch (error) {
+    console.error(`Erro ao obter produto com nome ${productName}:`, error);
+    throw error;
+  }
+};
+
+
 // Função para fazer upload da imagem no Cloudinary
 export const uploadImageToCloudinary = async (file: File): Promise<string> => {
   const formData = new FormData();
@@ -123,16 +139,16 @@ export const updateProduct = async (productId: number, productData: ProductFormD
       price: Number(productData.price),
       year: productData.year ? Number(productData.year) : undefined,
       tags: productData.tags,
-      front_image: productData.front_image instanceof File 
+      front_image: productData.front_image instanceof File
         ? await uploadImageToCloudinary(productData.front_image)
         : productData.front_image, // Se não for File, assume que é uma string (URL)
-      back_image: productData.back_image instanceof File 
+      back_image: productData.back_image instanceof File
         ? await uploadImageToCloudinary(productData.back_image)
         : productData.back_image,
-      detail_image: productData.detail_image instanceof File 
+      detail_image: productData.detail_image instanceof File
         ? await uploadImageToCloudinary(productData.detail_image)
         : productData.detail_image,
-      detail2_image: productData.detail2_image instanceof File 
+      detail2_image: productData.detail2_image instanceof File
         ? await uploadImageToCloudinary(productData.detail2_image)
         : productData.detail2_image,
     };

@@ -42,7 +42,7 @@ export function App() {
                   <Route path="/admin/products/create" element={<PrivateRoute><PageTransition><CreateProductPage /></PageTransition></PrivateRoute>} />
                   <Route path="/admin/products/edit/:id" element={<PrivateRoute><PageTransition><EditProductPage /></PageTransition></PrivateRoute>} />
                   <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-                  <Route path="/product/:id" element={<PageTransition><ProductPage /></PageTransition>} />
+                  <Route path="/product/:name" element={<PageTransition><ProductPage /></PageTransition>} />
                   <Route path="/cart" element={<PageTransition><CartPage /></PageTransition>} />
                   <Route path="/search" element={<PageTransition><SearchPage /></PageTransition>} />
                   <Route path="/national-shirts" element={<NationalShirts />} />
