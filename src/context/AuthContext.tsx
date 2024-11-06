@@ -14,7 +14,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const handleLogout = useCallback(() => {
     localStorage.removeItem('adminToken');
     localStorage.removeItem('loginTimestamp'); // Remove o timestamp ao deslogar
-    navigate('/admin/login');
+    navigate('/');
   }, [navigate]);
 
   const logout = useCallback(() => {
