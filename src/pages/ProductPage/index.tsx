@@ -101,8 +101,8 @@ export function ProductPage() {
               <SizeButton $isSelected={selectedSize === 'P'} onClick={() => handleSizeSelect('P')}>P</SizeButton>
               <SizeButton $isSelected={selectedSize === 'M'} onClick={() => handleSizeSelect('M')}>M</SizeButton>
               <SizeButton $isSelected={selectedSize === 'G'} onClick={() => handleSizeSelect('G')}>G</SizeButton>
-              <SizeButton $isSelected={selectedSize === 'GG'} onClick={() => handleSizeSelect('GG')}>G</SizeButton>
-              <SizeButton $isSelected={selectedSize === '3G'} onClick={() => handleSizeSelect('3G')}>G</SizeButton>
+              <SizeButton $isSelected={selectedSize === 'GG'} onClick={() => handleSizeSelect('GG')}>GG</SizeButton>
+              <SizeButton $isSelected={selectedSize === '3G'} onClick={() => handleSizeSelect('3G')}>3G</SizeButton>
             </div>
           </SizeSelector>
           {error && <ErrorMessage>{error}</ErrorMessage>}
