@@ -54,14 +54,13 @@ export const ProductContainer = styled.div`
       align-items: flex-start;
       text-align: left;
       button {
-        width: 100%;
       }
     }
   }
 `;
 
 export const BuyButton = styled.button<{ $isSelected: boolean }>`
-  width: 15rem; 
+  width: 100%; 
   height: 50px; 
   border: 1px solid ${({ $isSelected }) => ($isSelected ? '#333' : '#ccc')}; 
   background-color: ${({ $isSelected }) => ($isSelected ? '#333' : 'transparent')}; 
@@ -163,8 +162,8 @@ export const SizeSelector = styled.div`
 `;
 
 export const SizeButton = styled.button<{ $isSelected: boolean }>`
-  width: 50px; 
-  height: 50px; 
+  width: 45px; 
+  height: 45px; 
   border: 1px solid ${({ $isSelected }) => ($isSelected ? '#333' : '#ccc')}; 
   background-color: ${({ $isSelected }) => ($isSelected ? '#333' : 'transparent')}; 
   color: white;
@@ -178,8 +177,8 @@ export const SizeButton = styled.button<{ $isSelected: boolean }>`
   }
 
   @media (max-width: 740px) {
-    width: 45px; 
-    height: 45px;
+    width: 40px; 
+    height: 40px;
     font-size: 0.8rem;
   }
 `;

@@ -44,7 +44,7 @@ export const MainContainer = styled.div`
 `;
 
 export const BreadcrumbContainer = styled.div`
-  font-size: 0.85rem;
+  font-size: 0.86rem;
   font-family: 'Poppins', sans-serif;
   margin-bottom: 8px;
   color: white;
