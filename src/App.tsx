@@ -1,6 +1,6 @@
-import { Route, Routes, useLocation } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { motion } from 'framer-motion';
+import { Route, Routes, useLocation } from 'react-router-dom'; // Importando os componentes de roteamento
+import { AuthProvider } from './context/AuthContext'; // Provedor de contexto para autenticação
+import { motion } from 'framer-motion'; // Biblioteca para animações
 import { Header } from './components/Header';
 import { GlobalStyle } from './styles/global';
 import { AppContainer } from './layout/AppStyles';
@@ -8,9 +8,9 @@ import { Home } from './pages/Home';
 import { ProductPage } from './pages/ProductPage';
 import { CartPage } from './pages/CartPage';
 import { SearchPage } from './pages/SearchPage';
-import { CartProvider } from './context/CartContext';
+import { CartProvider } from './context/CartContext'; // Provedor de contexto para o carrinho de compras
 import { LoginPage } from './pages/LoginPage';
-import { PrivateRoute } from './components/PrivateRoute';
+import { PrivateRoute } from './components/PrivateRoute'; // Componente de rota privada (protege rotas que necessitam de autenticação)
 import { AdminProductsPage } from './pages/AdminProductsPage';
 import { EditProductPage } from './pages/EditProductPage';
 import { CreateProductPage } from './pages/CreateProductPage';
@@ -18,10 +18,10 @@ import { NationalShirts } from '../src/pages/NationalShirts';
 import { InternationalShirts } from '../src/pages/InternationalShirts';
 import { ContactPage } from './pages/ContactPage';
 import { AnimatePresence } from 'framer-motion';
-import PageTransition from './components/PageTransition';
+import PageTransition from './components/PageTransition'; // Componente que gerencia as transições de página
 
 export function App() {
-  const location = useLocation();
+  const location = useLocation(); // Hook para acessar a localização da página
 
   return (
     <AuthProvider>
