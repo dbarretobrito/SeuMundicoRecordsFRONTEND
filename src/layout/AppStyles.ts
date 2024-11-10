@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// Contêiner principal da aplicação, controlando a estrutura geral do layout
 export const AppContainer = styled.div`
   width: 100%;
   display: flex;
