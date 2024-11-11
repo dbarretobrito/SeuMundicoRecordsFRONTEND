@@ -1,71 +1,78 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { useCart } from '../../context/useCart';
+import { useParams, useNavigate } from 'react-router-dom'; // Para acessar parâmetros de URL e navegação
+import { useState, useEffect } from 'react'; // Hooks para controle de estado e efeitos colaterais
+import { useCart } from '../../context/useCart'; // Hook customizado para manipulação do carrinho de compras
 import { Link } from 'react-router-dom'
 import { ProductContainer, ProductImage, BreadcrumbContainer, ErrorMessage, SizeSelector, SizeButton, ConfirmationMessage, ThumbnailsContainer, Thumbnail, ModalOverlay, ModalContent, ModalImage, BuyButton, CloseButton } from './styles';
-import ReactSlick from "react-slick";
+import ReactSlick from "react-slick"; // Carrossel para imagens do produto
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRulerHorizontal } from '@fortawesome/free-solid-svg-icons';
-import { getProductById } from '../../services/productService'; // Importa a função para buscar produto
-import { Product } from '../../types/Product';
+import { getProductById } from '../../services/productService'; // Função para buscar produto por ID
+import { Product } from '../../types/Product'; // Tipagem do produto
 
+// Função principal da página de produto
 export function ProductPage() {
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  const { addToCart } = useCart();
+  const { id } = useParams<{ id: string }>(); // Acessa o ID do produto da URL
+  const navigate = useNavigate(); // Hook para navegação programática
+  const { addToCart } = useCart(); // Função para adicionar produto ao carrinho
   const [product, setProduct] = useState<Product | null>(null); // Estado do produto
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [confirmationMessage, setConfirmationMessage] = useState<boolean>(false);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isMeasuresModalOpen, setIsMeasuresModalOpen] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null); // Tamanho selecionado
+  const [error, setError] = useState<string | null>(null); // Estado para mensagens de erro
+  const [confirmationMessage, setConfirmationMessage] = useState<boolean>(false); // Mensagem de confirmação de adição ao carrinho
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // Controle do modal de imagem
+  const [isMeasuresModalOpen, setIsMeasuresModalOpen] = useState(false); // Controle do modal de medidas
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0); // Controle da imagem atual no carrossel
 
+  // Efeito para buscar o produto no backend
   useEffect(() => {
     const fetchProduct = async () => {
       if (id) {
         const fetchedProduct = await getProductById(parseInt(id)); // Busca o produto pelo ID
-        setProduct(fetchedProduct);
+        setProduct(fetchedProduct); // Atualiza o estado com o produto retornado
       }
     };
     fetchProduct();
-  }, [id]);
+  }, [id]); // O efeito é executado sempre que o ID do produto muda
 
+  // Se o produto não for encontrado, exibe um ícone de erro
   if (!product) {
     return <div>✷</div>;
   }
 
+  // Função para adicionar o produto ao carrinho
   const handleAddToCart = () => {
-    if (!selectedSize) {
+    if (!selectedSize) { // Verifica se o tamanho foi selecionado
       setError('O campo Tamanho é obrigatório.');
       return;
     }
 
-    // Garante que não estamos passando valores undefined
-    addToCart({
-      id: product.id || 0, // Define um valor padrão (ex: 0)
-      name: product.name || 'Nome do Produto', // Define um valor padrão
-      image: typeof product.front_image === 'string' ? product.front_image : '', // Garante que seja string
-      description: product.description || 'Sem descrição', // Define um valor padrão
-      price: product.price || 0, // Define um valor padrão (ex: 0)
+
+    addToCart({ // Adiciona o produto ao carrinho com dados necessários
+      id: product.id || 0,
+      name: product.name || 'Nome do Produto',
+      image: typeof product.front_image === 'string' ? product.front_image : '',
+      description: product.description || 'Sem descrição',
+      price: product.price || 0,
       size: selectedSize,
       quantity: 1
     });
 
-    setError(null);
-    setConfirmationMessage(true);
+    setError(null); // Limpa o erro
+    setConfirmationMessage(true); // Exibe a mensagem de confirmação
 
+    // Redireciona para a página do carrinho após 1.5 segundos
     setTimeout(() => {
       setConfirmationMessage(false);
       navigate('/cart');
     }, 1500);
   };
 
+  // Função para selecionar o tamanho
   const handleSizeSelect = (size: string) => {
-    setSelectedSize(size);
+    setSelectedSize(size); // Atualiza o tamanho selecionado
     setError(null); // Limpa o erro se um tamanho for selecionado
   };
 
+  // Lista de imagens para o carrossel, excluindo valores nulos ou indefinidos
   const images = [
     product.front_image,
     product.back_image,
@@ -73,21 +80,24 @@ export function ProductPage() {
     product.detail2_image
   ].filter(Boolean);
 
+  // Função para exibir a imagem no modal ao clicar em uma thumbnail
   const handleThumbnailClick = (index: number) => {
-    setCurrentImageIndex(index);
-    setIsModalOpen(true);
+    setCurrentImageIndex(index); // Atualiza o índice da imagem
+    setIsModalOpen(true); // Abre o modal de imagem
   };
 
+  // Função para fechar o modal de imagem
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
+  // Função para fechar o modal de medidas
   const closeMeasuresModal = () => setIsMeasuresModalOpen(false);
 
+  // Função para abrir o modal de medidas
   const handleOpenMeasuresModal = () => {
     setIsMeasuresModalOpen(true);
   };
-
 
   return (
     <div>
