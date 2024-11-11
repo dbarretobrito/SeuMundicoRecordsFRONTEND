@@ -1,12 +1,16 @@
+// Importa axios para fazer requisições HTTP, e uma função auxiliar para pegar o token de autenticação
 import axios from 'axios';
-import { getAuthToken } from './authService'; // Função para pegar o token de autenticação, ajuste de acordo com seu projeto
-import { Product } from '../types/Product';
-import { ProductFormData } from '../types/ProductFormData';
+import { getAuthToken } from './authService';
+import { Product } from '../types/Product'; // Tipagem do produto
+import { ProductFormData } from '../types/ProductFormData'; // Tipagem dos dados do formulário de produto
 
-const BASE_URL = import.meta.env.VITE_BACKEND_URL; // URL do seu backend
+// URL base para chamadas à API do backend, configurada via variável de ambiente
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
+// Função para buscar a lista de produtos
 export const getProducts = async (): Promise<Product[]> => {
   try {
+    // Faz requisição GET para buscar todos os produtos, passando o token para autenticação
     const response = await axios.get(`${BASE_URL}/api/products`, {
       headers: {
         Authorization: `Bearer ${getAuthToken()}`,
@@ -20,7 +24,7 @@ export const getProducts = async (): Promise<Product[]> => {
   }
 };
 
-// Função para obter um produto pelo ID
+// Função para buscar um produto específico pelo ID
 export const getProductById = async (productId: number): Promise<Product> => {
   try {
     const response = await axios.get(`${BASE_URL}/api/products/${productId}`, {
@@ -36,12 +40,12 @@ export const getProductById = async (productId: number): Promise<Product> => {
   }
 };
 
-// Função para fazer upload da imagem no Cloudinary
+// Função para fazer upload de uma imagem para o Cloudinary
 export const uploadImageToCloudinary = async (file: File): Promise<string> => {
   const formData = new FormData();
   formData.append('file', file);
-  formData.append('upload_preset', import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET); // Preset de upload
-  formData.append('cloud_name', import.meta.env.VITE_CLOUDINARY_CLOUD_NAME); // Nome da sua conta Cloudinary
+  formData.append('upload_preset', import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET); // Preset de upload configurado no Cloudinary
+  formData.append('cloud_name', import.meta.env.VITE_CLOUDINARY_CLOUD_NAME); // Nome da conta Cloudinary
 
   try {
     const response = await axios.post('https://api.cloudinary.com/v1_1/' + import.meta.env.VITE_CLOUDINARY_CLOUD_NAME + '/image/upload', formData);
@@ -52,27 +56,28 @@ export const uploadImageToCloudinary = async (file: File): Promise<string> => {
   }
 };
 
-// Função para criar um novo produto, agora incluindo o upload de imagens no Cloudinary
+// Função para criar um novo produto, com suporte ao upload de imagens
 export const createProduct = async (productData: ProductFormData): Promise<{ id: number; message: string }> => {
   try {
     const formData = new FormData();
 
-    // Define `updatedProductData` com dados não relacionados a imagens
+    // Objeto que contém dados do produto, excluindo imagens inicialmente
     const updatedProductData: Partial<Product> = {
       name: productData.name,
       description: productData.description,
       price: productData.price,
       year: productData.year,
-      tags: productData.tags, // Armazena como array de strings diretamente
+      tags: productData.tags, // Tags armazenadas como array de strings
     };
 
-    // Verifica e carrega as imagens no Cloudinary, se forem do tipo `File`
+    // Carrega imagens no Cloudinary, caso elas sejam do tipo `File`
     if (productData.front_image instanceof File) {
       updatedProductData.front_image = await uploadImageToCloudinary(productData.front_image);
     } else {
       updatedProductData.front_image = productData.front_image as string;
     }
 
+    // Processa outras imagens conforme necessário (back_image, detail_image, etc.)
     if (productData.back_image instanceof File) {
       updatedProductData.back_image = await uploadImageToCloudinary(productData.back_image);
     } else {
@@ -116,23 +121,23 @@ export const createProduct = async (productData: ProductFormData): Promise<{ id:
 // Função para atualizar um produto existente
 export const updateProduct = async (productId: number, productData: ProductFormData): Promise<{ id: number; message: string }> => {
   try {
-    // Carregar imagens no Cloudinary se forem `File` e criar um novo objeto com os dados atualizados
+    // Carrega imagens no Cloudinary, se necessário
     const updatedProductData: Partial<Product> = {
       name: productData.name,
       description: productData.description,
       price: Number(productData.price),
       year: productData.year ? Number(productData.year) : undefined,
       tags: productData.tags,
-      front_image: productData.front_image instanceof File 
+      front_image: productData.front_image instanceof File
         ? await uploadImageToCloudinary(productData.front_image)
         : productData.front_image, // Se não for File, assume que é uma string (URL)
-      back_image: productData.back_image instanceof File 
+      back_image: productData.back_image instanceof File
         ? await uploadImageToCloudinary(productData.back_image)
         : productData.back_image,
-      detail_image: productData.detail_image instanceof File 
+      detail_image: productData.detail_image instanceof File
         ? await uploadImageToCloudinary(productData.detail_image)
         : productData.detail_image,
-      detail2_image: productData.detail2_image instanceof File 
+      detail2_image: productData.detail2_image instanceof File
         ? await uploadImageToCloudinary(productData.detail2_image)
         : productData.detail2_image,
     };
