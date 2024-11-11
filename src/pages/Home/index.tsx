@@ -3,35 +3,40 @@ import { MainContainer, ProductGrid } from './styles';
 import { Card } from '../../components/Card';
 import { ProductCarousel } from '../../components/ProductCarousel';
 import { useEffect, useState } from 'react';
-import { getProducts } from '../../services/productService';  // Importando o tipo correto de Product
+import { getProducts } from '../../services/productService';  // Importando a função para buscar produtos
 import { Product } from '../../types/Product';
 
 
 export function Home() {
-  const [products, setProducts] = useState<Product[]>([]);  // Usando o tipo Product importado
-  const [loading, setLoading] = useState<boolean>(true);
+  const [products, setProducts] = useState<Product[]>([]); // Estado para armazenar os produtos, inicializado como um array vazio
+  const [loading, setLoading] = useState<boolean>(true); // Estado para controlar o loading da requisição
   const [error, setError] = useState<string | null>(null);
 
+  // UseEffect para buscar os produtos quando o componente for montado
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        // Chama o serviço para obter os produtos
         const data = await getProducts();
-        setProducts(data);  // O erro na linha 25 é resolvido ao alinhar o tipo Product
+        setProducts(data);  // Atualiza o estado com os produtos obtidos
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         setError('Falha ao carregar produtos');
       } finally {
+        // Após a execução, define que o carregamento foi concluído
         setLoading(false);
       }
     };
 
-    fetchProducts();
-  }, []);
+    fetchProducts(); // Chama a função para buscar os produtos
+  }, []); // O array vazio garante que a requisição será feita apenas uma vez, ao montar o componente
 
+  // Enquanto os produtos estão sendo carregados, exibe um ícone de carregamento
   if (loading) {
     return <div>✷</div>;
   }
 
+  // Caso haja algum erro ao buscar os produtos, exibe a mensagem de erro
   if (error) {
     return <div>{error}</div>;
   }
