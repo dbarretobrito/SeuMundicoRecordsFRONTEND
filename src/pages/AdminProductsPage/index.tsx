@@ -27,11 +27,12 @@ export const AdminProductsPage = () => {
   const navigate = useNavigate();
   const { logout } = useAuth(); // Usar o logout do contexto
 
+  // Função para buscar os produtos
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await getProducts();
-        setProducts(data);
+        const data = await getProducts(); // Chama o serviço para buscar produtos
+        setProducts(data); // Atualiza o estado com os produtos recebidos
       } catch (error) {
         console.error('Erro ao carregar produtos:', error);
       } finally {
@@ -39,14 +40,15 @@ export const AdminProductsPage = () => {
       }
     };
 
-    fetchProducts();
-  }, []); // Removido o timer de logout
+    fetchProducts(); // Chama a função ao carregar a página
+  }, []); // Array de dependências vazio, a função executa uma vez
 
+  // Função para deletar um produto
   const handleDelete = async (id: number) => {
-    if (window.confirm('Tem certeza que deseja deletar este produto?')) {
+    if (window.confirm('Tem certeza que deseja deletar este produto?')) { // Confirmação antes de excluir
       try {
-        await deleteProduct(id);
-        setProducts(products.filter((product) => product.id !== id));
+        await deleteProduct(id); // Chama o serviço para deletar o produto
+        setProducts(products.filter((product) => product.id !== id)); // Atualiza a lista removendo o produto deletado
       } catch (error) {
         console.error('Erro ao deletar produto:', error);
       }
