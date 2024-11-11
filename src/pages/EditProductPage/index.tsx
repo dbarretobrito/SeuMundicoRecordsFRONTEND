@@ -29,10 +29,12 @@ export const EditProductPage = () => {
   const [tags, setTags] = useState<string[]>([]);
 
   useEffect(() => {
+    // Função que busca o produto do backend
     const fetchProduct = async () => {
       try {
         const response = await axios.get<Product>(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`);
         const productFromBackend = response.data;
+        // Verifica se tags são um array, caso contrário, inicializa como array vazio
         setProduct({ ...productFromBackend, tags: Array.isArray(productFromBackend.tags) ? productFromBackend.tags : [] });
         setTags(Array.isArray(productFromBackend.tags) ? productFromBackend.tags : []);
       } catch (err) {
@@ -44,11 +46,13 @@ export const EditProductPage = () => {
     fetchProduct();
   }, [id]);
 
+  // Função para deslogar o admin
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
     navigate('/admin/login');
   };
 
+  // Função para fazer upload de imagens usando o Cloudinary
   const handleImageUpload = (callback: (url: string) => void) => {
     const uploadOptions = {
       cloudName: 'dt31tve3m',
@@ -59,11 +63,12 @@ export const EditProductPage = () => {
 
     window.cloudinary.openUploadWidget(uploadOptions, (_error: unknown, result: { event: string; info: { secure_url: string } }) => {
       if (result && result.event === 'success') {
-        callback(result.info.secure_url);
+        callback(result.info.secure_url); // Chama o callback com a URL da imagem
       }
     });
   };
 
+  // Função que lida com o envio do formulário para atualizar o produto
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -74,6 +79,7 @@ export const EditProductPage = () => {
     try {
       const token = localStorage.getItem('adminToken');
 
+      // Envia os dados do produto para o backend para atualização
       const response = await axios.put<UpdateProductResponse>(
         `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`,
         updatedProduct,
@@ -84,7 +90,7 @@ export const EditProductPage = () => {
         }
       );
       setSuccess(response.data.message || 'Produto atualizado com sucesso');
-      navigate('/admin/products');
+      navigate('/admin/products'); // Redireciona para a lista de produtos após o sucesso
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const errorData = error.response?.data;
@@ -96,6 +102,7 @@ export const EditProductPage = () => {
     }
   };
 
+  // Função para adicionar uma nova tag
   const handleAddTag = () => {
     if (newTag.trim() && !tags.includes(newTag.trim())) {
       setTags([...tags, newTag.trim()]);
@@ -103,10 +110,12 @@ export const EditProductPage = () => {
     }
   };
 
+  // Função para excluir uma tag
   const handleDeleteTag = (tagToDelete: string) => {
     setTags(tags.filter(tag => tag !== tagToDelete));
   };
 
+  // Função para excluir imagens
   const handleDeleteImage = (imageType: string) => {
     const confirmDelete = window.confirm('Você tem certeza que deseja deletar esta imagem?');
     if (confirmDelete) {
