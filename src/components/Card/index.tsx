@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { CardContainer, CardImage, CardContent } from './styles';
 
+// Definição das props que o componente Card recebe
 interface CardProps {
   image: string; // URL da imagem
   name: string; // Nome do produto
