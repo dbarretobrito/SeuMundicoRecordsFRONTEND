@@ -4,18 +4,21 @@ import { FaShoppingCart, FaSearch, FaBars } from 'react-icons/fa';
 import seuMundicoLogoNaked from '../../assets/seuMundicoLogoNaked.png';
 
 export function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado que controla a abertura e fechamento do menu mobile
+  const menuRef = useRef<HTMLDivElement>(null);// Referências para o menu e o ícone de hambúrguer para verificar cliques fora
   const hamburgerRef = useRef<HTMLDivElement>(null);
 
+  // Função para alternar o estado do menu (abrir/fechar)
   const toggleMenu = () => {
     setIsMenuOpen(prev => !prev);
   };
 
+  // Função para fechar o menu
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
 
+  // Função para detectar cliques fora do menu e do ícone de hambúrguer
   const handleClickOutside = (event: MouseEvent) => {
     if (
       menuRef.current &&
@@ -27,6 +30,7 @@ export function Header() {
     }
   };
 
+  // Efeito colateral para adicionar e remover o listener de eventos de clique fora
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
 
