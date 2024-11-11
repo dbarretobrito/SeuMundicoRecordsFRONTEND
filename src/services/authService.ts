@@ -1,9 +1,9 @@
-// src/services/authService.ts
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_BACKEND_URL; // Certifique-se de que o backend está corretamente configurado no .env
 
 export const loginAdmin = async (username: string, password: string) => {
+  // Função para autenticar o administrador e armazenar o token no localStorage
   const response = await axios.post(`${API_URL}/login`, { username, password });
 
   // Verifica se o token foi retornado na resposta
