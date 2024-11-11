@@ -13,6 +13,7 @@ import {
 } from './styles';
 
 export const CreateProductPage = () => {
+  // Estados para armazenar os valores do formulário
   const [name, setName] = useState('');
   const [price, setPrice] = useState<number | ''>('');
   const [description, setDescription] = useState('');
@@ -26,6 +27,7 @@ export const CreateProductPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // Função para gerenciar o upload de imagens
   const handleImageUpload = (callback: (url: string) => void) => {
     const uploadOptions = {
       cloudName: 'dt31tve3m',
@@ -34,6 +36,7 @@ export const CreateProductPage = () => {
       showAdvancedOptions: true,
     };
 
+    // Abre a interface do Cloudinary para o usuário escolher e fazer o upload da imagem
     window.cloudinary.openUploadWidget(
       uploadOptions,
       (_error: unknown, result: { event: string; info: { secure_url: string } }) => {
@@ -44,15 +47,17 @@ export const CreateProductPage = () => {
     );
   };
 
+  // Função chamada ao submeter o formulário
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
+    // Criação do objeto do novo produto
     const newProduct = {
       name,
       price: Number(price),
       description,
       year: Number(year),
-      tags: tags.split(',').map((tag) => tag.trim()),
+      tags: tags.split(',').map((tag) => tag.trim()), // Converte as tags separadas por vírgula em um array
       front_image: frontImage,
       back_image: backImage,
       detail_image: detailImage,
@@ -60,20 +65,21 @@ export const CreateProductPage = () => {
     };
 
     try {
-      const token = localStorage.getItem('adminToken');
+      const token = localStorage.getItem('adminToken'); // Recupera o token de autenticação do localStorage
 
+      // Faz a requisição para criar o produto no backend
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/products`,
-        newProduct,
+        `${import.meta.env.VITE_BACKEND_URL}/api/products`, // URL da API de criação de produtos
+        newProduct, // Dados do produto
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`, // Envia o token no cabeçalho para autenticação
           },
         }
       );
 
       setSuccess(response.data.message || 'Produto criado com sucesso');
-      navigate('/admin/products');
+      navigate('/admin/products'); // Redireciona para a lista de produtos após o sucesso
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const errorData = error.response?.data;
