@@ -74,7 +74,13 @@ export function CartPage() {
     // Codifica a mensagem para uso em URLs
     const encodedMessage = encodeURIComponent(message);
     const phoneNumber = '5581999847081';
-    const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    const isDesktop = () => {
+        return !/Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+    };
+
+    const whatsappLink = isDesktop()
+        ? `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`
+        : `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
     return (
         <CartContainer>
