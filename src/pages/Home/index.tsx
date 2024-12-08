@@ -8,7 +8,7 @@ import { Product } from '../../types/Product';
 
 
 export function Home() {
-  const [products, setProducts] = useState<Product[]>([]);  // Usando o tipo Product importado
+  const [products, setProducts] = useState<Product[]>([]);  // Usando o tipo Product importadoo
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
