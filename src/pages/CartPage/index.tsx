@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'; // Importa hooks do React
-import { CartContext } from '../../context/CartContext'; // Importa o contexto do carrinho
+import { CartContext } from '../../context/CartContext'; // Importa o contexto do carrinho.
 import {
     CartContainer,
     CartContent,
