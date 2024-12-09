@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react';
-import { CartContext } from '../../context/CartContext';
+import { useContext, useState } from 'react'; // Importa hooks do React
+import { CartContext } from '../../context/CartContext'; // Importa o contexto do carrinho
 import {
     CartContainer,
     CartContent,
@@ -14,10 +14,11 @@ import {
     TotalAmount,
     AddMoreButton,
     FinishButton,
-    CepInput // Certifique-se de importar o estilo para o input de CEP
+    CepInput
 } from './styles';
 import { FaWhatsapp } from 'react-icons/fa';
 
+// Define a interface para os itens do carrinho
 interface CartItem {
     id: number;
     name: string;
@@ -27,47 +28,62 @@ interface CartItem {
     image: string;
 }
 
+// Define os parâmetros para a função que gera a mensagem do WhatsApp
 interface GenerateWhatsAppMessageParams {
     cartItems: CartItem[];
     totalAmount: number;
     cep: string; // Adicionando CEP como parâmetro
 }
 
+// Função para gerar a mensagem a ser enviada pelo WhatsApp
 const generateWhatsAppMessage = ({
     cartItems,
     totalAmount,
     cep, // Adicionando CEP
 }: GenerateWhatsAppMessageParams): string => {
+    // Formata os detalhes dos itens do carrinho
     const itemDetails = cartItems.map(item =>
         `- ${item.quantity}x ${item.name} (Tamanho ${item.size})`
     ).join('\n');
 
+    // Retorna a mensagem formatada
     return `✷ Olá! Quero concluir minha compra:\n\n${itemDetails}\n\nTotal: R$ ${totalAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}\n\n Meu CEP é: ${cep}.`;
 };
 
+// Componente de página do carrinho
 export function CartPage() {
-    const cartContext = useContext(CartContext);
-    const [cep, setCep] = useState(''); // Estado para armazenar o CEP
+    const cartContext = useContext(CartContext); // Usa o contexto do carrinho para acessar os dados
+
+    const [cep, setCep] = useState(''); // Estado para armazenar o CEP digitado pelo usuário
 
     // Verifica se o contexto é indefinido
     if (!cartContext) {
         return <div>Erro ao carregar o carrinho. Por favor, recarregue a página.</div>;
     }
 
+    // Desestrutura funções e valores do contexto do carrinho
     const { cartItems, removeFromCart, updateQuantity, totalAmount } = cartContext;
 
+    // Gera a mensagem a ser enviada pelo WhatsApp
     const message = generateWhatsAppMessage({
         cartItems,
         totalAmount,
         cep, // Passando o CEP para a mensagem
     });
 
+    // Codifica a mensagem para uso em URLs
     const encodedMessage = encodeURIComponent(message);
     const phoneNumber = '5581999847081';
-    const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    const isDesktop = () => {
+        return !/Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+    };
+
+    const whatsappLink = isDesktop()
+        ? `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`
+        : `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
     return (
-        <CartContainer>            
+        <CartContainer>
             <CartContent>
                 <CartHeader>
                     <span>Imagem</span>
