@@ -29,7 +29,7 @@ export function Home() {
   }, []);
 
   if (loading) {
-    return <div>✷</div>;
+    return <div>Carregando ✷✷✷</div>;
   }
 
   if (error) {
